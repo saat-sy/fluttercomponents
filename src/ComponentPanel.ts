@@ -135,9 +135,9 @@ export class ComponentPanel {
     const stylesMainUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css")
     );
-    // const cssUri = webview.asWebviewUri(
-    //   vscode.Uri.joinPath(this._extensionUri, "out", "compiled/swiper.css")
-    // );
+    const cssUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, "out/compiled", "CreateComponent.css")
+    );
 
     // Use a nonce to only allow specific scripts to be run
     const nonce = getNonce();
@@ -156,6 +156,7 @@ export class ComponentPanel {
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<link href="${stylesResetUri}" rel="stylesheet">
 				<link href="${stylesMainUri}" rel="stylesheet">
+				<link href="${cssUri}" rel="stylesheet">
         <script nonce="${nonce}"></script>
 		</head>
         <body>

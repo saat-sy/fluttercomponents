@@ -8,6 +8,13 @@ export function activate(context: vscode.ExtensionContext) {
 			ComponentPanel.createOrShow(context.extensionUri);
 		})
 	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('fluttercomponents.refresh', () => {
+			ComponentPanel.kill();
+			ComponentPanel.createOrShow(context.extensionUri);
+		})
+	);
 }
 
 export function deactivate() {}
