@@ -28,7 +28,7 @@ export class ComponentPanel {
     // Otherwise, create a new panel.
     const panel = vscode.window.createWebviewPanel(
       ComponentPanel.viewType,
-      "VSinder",
+      "Create Component",
       column || vscode.ViewColumn.One,
       {
         // Enable javascript in the webview
@@ -125,7 +125,7 @@ export class ComponentPanel {
   private _getHtmlForWebview(webview: vscode.Webview) {
     // // And the uri we use to load this script in the webview
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "out/compiled", "CreateComponent.cjs")
+      vscode.Uri.joinPath(this._extensionUri, "out/compiled", "CreateComponent.js")
     );
 
     // Uri to load styles into webview

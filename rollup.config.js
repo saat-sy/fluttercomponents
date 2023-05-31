@@ -16,14 +16,12 @@ export default fs
     const name = input.split(".")[0];
     return {
       input: "webviews/pages/" + input,
-      output: [
-        {
-          sourcemap: true,
-          format: "cjs",
-          name: "app",
-          file: "out/compiled/" + name + ".cjs",
-        }
-      ],
+      output: {
+        sourcemap: true,
+        format: "iife",
+        name: "app",
+        file: "out/compiled/" + name + ".js",
+      },
       plugins: [
         svelte({
           // enable run-time checks when not in production
