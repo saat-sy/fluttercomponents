@@ -22,7 +22,7 @@ export function dropzone(node: HTMLHeadingElement, options) {
         e.preventDefault();
         const data = e.dataTransfer.getData('text/plain');
         e.target.classList.remove(state.dragOverClass);
-        state.onDropped(Number(data), e);
+        state.onDropped(Number(data), state.title, e);
     }
 
     node.addEventListener("dragenter", dragEnter);

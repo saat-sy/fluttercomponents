@@ -1,0 +1,3 @@
+interface PropertiesModel {
+    title: string,
+}

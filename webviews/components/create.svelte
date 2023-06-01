@@ -1,8 +1,9 @@
 <script lang="ts">
     import { draggable } from "../shared/functions/draggable"; 
     import { dropzone } from "../shared/functions/dropzone";
-    import Border from "../shared/ui/border.svelte";
-    import Component from "../shared/ui/comp.svelte";
+    import DraggableComponent from "../shared/ui/DraggableComponent.svelte";
+    import Component from "../shared/ui/Component.svelte";
+    import properties from "../shared/properties/properties";
 
     let builderTree: Tree = null;
 
@@ -17,7 +18,7 @@
         },
         {
             id: 2,
-            name: "Button",
+            name: "Container",
         },
         {
             id: 3,
@@ -25,13 +26,23 @@
         },
     ]
 
-    function onDropped(componentId: number) {
-        console.log(componentId);
+    let component_props = [
+        properties.rowProperties,
+        properties.columnProperties,
+        properties.containerProperties,
+        properties.textProperties
+    ]
+
+    let dropToParent = true;
+
+    function onDropped(componentId: number, title) {
+        console.log(`${components[componentId].name} was dropped into ${title}`);
         // if (builderTree == null) {
             builderTree = {
                 component: components[componentId],
                 children: []
             };
+            dropToParent = false;
         // }
     }
 </script>
@@ -75,20 +86,23 @@
     <div class="components">
         {#each components as component}
             <div use:draggable={component.id}>
-				<Component>{component.name}</Component>
+				<DraggableComponent>{component.name}</DraggableComponent>
 			</div>
         {/each}
     </div>
-    
-    <div class="render" use:dropzone={{
-        onDropped
-    }}>
-        {#if builderTree == null}
+
+    {#if builderTree == null}
+        <div class="render" use:dropzone={{
+            onDropped,
+            title: "Parent",
+        }}>
             <span>Drag elements to get started</span>
-        {:else}
-            <Border title={builderTree.component.name}></Border>
-        {/if}
-    </div>
+        </div>
+    {:else}
+        <div class="render">
+            <Component onDropped={onDropped} properties={component_props[builderTree.component.id]} />
+        </div>
+    {/if}
     
     <div class="properties">
         <h1>Hello</h1>    
