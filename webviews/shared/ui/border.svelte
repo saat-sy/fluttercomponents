@@ -13,7 +13,7 @@
     @import "./variables.scss";
 
     .container {
-        width: 40%;
+        width: 100%;
         margin-bottom: 15%;
 
         .border {

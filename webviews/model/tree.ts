@@ -1,4 +1,5 @@
-interface Tree {
+interface TreeModel {
     component: ComponentModel,
-    children: Tree[],
+    index: Array<number>,
+    children: TreeModel[],
 };

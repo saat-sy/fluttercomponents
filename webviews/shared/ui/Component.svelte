@@ -4,9 +4,22 @@
 
     export let onDropped: Function; 
     export let properties: PropertiesModel;
+    export let index: Array<number>;
 </script>
 
-<div use:dropzone={{onDropped, title: properties.title}}>
+<style lang="scss">
+    .main {
+        width: 40%;
+    }
+
+    .inner {
+        width: 100%;
+    }
+</style>
+
+<div 
+    class={index[0] == -1 ? "main" : "inner"}
+    use:dropzone={{onDropped: onDropped, title: properties.title, index: index}}>
     <Border title={properties.title}>
         <slot></slot>
     </Border>

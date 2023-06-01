@@ -2,10 +2,8 @@
     import { draggable } from "../shared/functions/draggable"; 
     import { dropzone } from "../shared/functions/dropzone";
     import DraggableComponent from "../shared/ui/DraggableComponent.svelte";
-    import Component from "../shared/ui/Component.svelte";
     import properties from "../shared/properties/properties";
-
-    let builderTree: Tree = null;
+    import Tree from "../shared/ui/tree.svelte";
 
     let components = [
         {
@@ -26,24 +24,62 @@
         },
     ]
 
-    let component_props = [
-        properties.rowProperties,
-        properties.columnProperties,
-        properties.containerProperties,
-        properties.textProperties
-    ]
+    let builderTree: TreeModel = {
+        component: components[0],
+        index: [-1],
+        children: [
+            {
+                component: components[1],
+                index: [0],
+                children: [
+                    {
+                        component: components[2],
+                        index: [0, 1],
+                        children: []
+                    }
+                ]
+            },
+            {
+                component: components[3],
+                index: [2],
+                children: []
+            }
+        ]
+    };
 
     let dropToParent = true;
 
-    function onDropped(componentId: number, title) {
-        console.log(`${components[componentId].name} was dropped into ${title}`);
-        // if (builderTree == null) {
+    function onDropped(componentId: number, index: Array<number>) {
+        if (builderTree == null) {
             builderTree = {
                 component: components[componentId],
+                index: [-1],
                 children: []
             };
             dropToParent = false;
-        // }
+        } else {
+            let treeToInsert = builderTree;
+            let firstChildren = false;
+
+            for (let i of index) {
+                if (i == -1) {
+                    firstChildren = true;
+                    break;
+                } else {
+                    treeToInsert = builderTree.children[i];
+                }
+            }
+
+            treeToInsert.children.push({
+                component: components[componentId],
+                index: firstChildren ? 
+                    [treeToInsert.children.length] : 
+                    [...treeToInsert.index, treeToInsert.children.length],
+                children: []
+            });
+
+            console.log(builderTree);
+        }
     }
 </script>
 
@@ -100,7 +136,7 @@
         </div>
     {:else}
         <div class="render">
-            <Component onDropped={onDropped} properties={component_props[builderTree.component.id]} />
+            <Tree tree={builderTree} onDropped={onDropped} />
         </div>
     {/if}
     
