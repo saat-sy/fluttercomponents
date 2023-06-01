@@ -13,15 +13,13 @@
     const { component, index, children } = tree;
 
     export let onDropped: Function;
+    console.log(onDropped);
 </script>
 
-<Component 
-    onDropped={onDropped}
-    properties={component_props[component.id]}
-    index={index}>
+<Component onDropped={onDropped} properties={component_props[component.id]} index={index}>
 
     {#each children as child}
-        <svelte:self tree={child} />
+        <svelte:self tree={child} onDropped={onDropped} />
     {/each}
 
 </Component>
