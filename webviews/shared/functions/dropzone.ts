@@ -21,9 +21,10 @@ export function dropzone(node: HTMLHeadingElement, options) {
     function drop(e) {
         e.preventDefault();
         const data = e.dataTransfer.getData('text/plain');
-        e.target.classList.remove(state.dragOverClass);
-        console.log(state.index);
-        state.onDropped(Number(data), state.index, e);
+        if (e.target.classList.contains(state.dragOverClass)) {
+            e.target.classList.remove(state.dragOverClass);
+            state.onDropped(Number(data), state.index, e);
+        }
     }
 
     node.addEventListener("dragenter", dragEnter);

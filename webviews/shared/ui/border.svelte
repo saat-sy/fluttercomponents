@@ -23,4 +23,8 @@
             padding: 20px;
         }
     }
+
+    .border:global(.droppable) {
+        border: 1px solid $active-border !important;
+    }
 </style>

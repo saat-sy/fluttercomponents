@@ -10,10 +10,15 @@
     ]
 
     export let tree: TreeModel;
-    const { component, index, children } = tree;
+    
+    let component: ComponentModel;
+    let index: Array<number>;
+    let children: Array<TreeModel>;
 
+    $: {
+        ({ component, index, children } = tree);
+    }
     export let onDropped: Function;
-    console.log(onDropped);
 </script>
 
 <Component onDropped={onDropped} properties={component_props[component.id]} index={index}>

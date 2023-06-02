@@ -24,28 +24,7 @@
         },
     ]
 
-    let builderTree: TreeModel = {
-        component: components[0],
-        index: [-1],
-        children: [
-            {
-                component: components[1],
-                index: [0],
-                children: [
-                    {
-                        component: components[2],
-                        index: [0, 1],
-                        children: []
-                    }
-                ]
-            },
-            {
-                component: components[3],
-                index: [2],
-                children: []
-            }
-        ]
-    };
+    let builderTree: TreeModel = null;
 
     let dropToParent = true;
 
@@ -58,7 +37,8 @@
             };
             dropToParent = false;
         } else {
-            let treeToInsert = builderTree;
+            let newTree = builderTree;
+            let treeToInsert = newTree;
             let firstChildren = false;
 
             for (let i of index) {
@@ -66,9 +46,11 @@
                     firstChildren = true;
                     break;
                 } else {
-                    treeToInsert = builderTree.children[i];
+                    treeToInsert = newTree.children[i];
                 }
             }
+
+            console.log(treeToInsert);
 
             treeToInsert.children.push({
                 component: components[componentId],
@@ -78,7 +60,8 @@
                 children: []
             });
 
-            console.log(builderTree);
+            // console.log(newTree);
+            builderTree = newTree;
         }
     }
 </script>
