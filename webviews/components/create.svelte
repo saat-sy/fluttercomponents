@@ -24,6 +24,29 @@
         },
     ]
 
+    // let builderTree: TreeModel = {
+    //     component: components[0],
+    //     index: [-1],
+    //     children: [
+    //         {
+    //             component: components[1],
+    //             index: [0],
+    //             children: [
+    //                 {
+    //                     component: components[2],
+    //                     index: [0, 0],
+    //                     children: [],
+    //                 }
+    //             ],
+    //         },
+    //         {
+    //             component: components[3],
+    //             index: [1],
+    //             children: [],
+    //         }
+    //     ],
+    // };
+
     let builderTree: TreeModel = null;
 
     let dropToParent = true;
@@ -46,11 +69,9 @@
                     firstChildren = true;
                     break;
                 } else {
-                    treeToInsert = newTree.children[i];
+                    treeToInsert = treeToInsert.children[i];
                 }
             }
-
-            console.log(treeToInsert);
 
             treeToInsert.children.push({
                 component: components[componentId],
@@ -60,7 +81,6 @@
                 children: []
             });
 
-            // console.log(newTree);
             builderTree = newTree;
         }
     }
