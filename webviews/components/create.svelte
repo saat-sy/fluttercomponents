@@ -2,8 +2,9 @@
     import { draggable } from "../shared/functions/draggable"; 
     import { dropzone } from "../shared/functions/dropzone";
     import DraggableComponent from "../shared/ui/DraggableComponent.svelte";
-    import properties from "../shared/properties/properties";
+    import properties from "../properties/properties";
     import Tree from "../shared/ui/tree.svelte";
+  import { extensionParentProperties } from "../properties/extension_parent";
 
     let components = [
         {
@@ -132,8 +133,9 @@
 
     {#if builderTree == null}
         <div class="render" use:dropzone={{
-            onDropped,
-            title: "Parent",
+            onDropped: onDropped, 
+            properties: properties.extensionParentProperties, 
+            children: 0
         }}>
             <span>Drag elements to get started</span>
         </div>

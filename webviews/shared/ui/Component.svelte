@@ -5,6 +5,7 @@
     export let onDropped: Function; 
     export let properties: PropertiesModel;
     export let index: Array<number>;
+    export let children: number;
 </script>
 
 <style lang="scss">
@@ -19,7 +20,11 @@
 
 <div 
     class={index[0] == -1 ? "main" : "inner"}
-    use:dropzone={{onDropped: onDropped, title: properties.title, index: index}}>
+    use:dropzone={{
+        onDropped: onDropped, 
+        properties: properties, 
+        index: index, 
+        children: children}}>
     <Border title={properties.title}>
         <slot></slot>
     </Border>

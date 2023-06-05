@@ -1,5 +1,5 @@
 <script lang="ts">
-    import properties from "../properties/properties";
+    import properties from "../../properties/properties";
     import Component from "./Component.svelte";
 
     let component_props = [
@@ -21,7 +21,7 @@
     export let onDropped: Function;
 </script>
 
-<Component onDropped={onDropped} properties={component_props[component.id]} index={index}>
+<Component onDropped={onDropped} properties={component_props[component.id]} index={index} children={children.length}>
 
     {#each children as child}
         <svelte:self tree={child} onDropped={onDropped} />
