@@ -1,5 +1,5 @@
 interface TreeModel {
     component: ComponentModel,
-    index: Array<number>,
+    id: number,
     children: TreeModel[],
 };

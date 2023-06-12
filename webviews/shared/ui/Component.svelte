@@ -1,30 +1,22 @@
 <script lang="ts">
-    import Border from "../ui/border.svelte";
-    import { dropzone } from "../functions/dropzone";
-
-    export let onDropped: Function; 
+    import Border from "./Border.svelte";
+    
     export let properties: PropertiesModel;
-    export let index: Array<number>;
-    export let children: number;
 </script>
 
 <style lang="scss">
     .main {
         width: 40%;
+        margin-bottom: 15px;
     }
 
     .inner {
         width: 100%;
+        margin-bottom: 15px;
     }
 </style>
 
-<div 
-    class={index[0] == -1 ? "main" : "inner"}
-    use:dropzone={{
-        onDropped: onDropped, 
-        properties: properties, 
-        index: index, 
-        children: children}}>
+<div class="inner" >
     <Border title={properties.title}>
         <slot></slot>
     </Border>

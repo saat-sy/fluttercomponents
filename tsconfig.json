@@ -17,5 +17,8 @@
 		"node_modules",
 		".vscode-test",
 		"webviews"
-	]
+	],
+	"include": [
+		"global.d.ts"
+	],
 }

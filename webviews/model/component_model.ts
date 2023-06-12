@@ -1,4 +1,5 @@
 interface ComponentModel {
     id: number,
-    name: string
+    name: string,
+    property: PropertiesModel
 }
