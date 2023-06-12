@@ -22,10 +22,6 @@
         }
     }
 
-    .border:global(.droppable) {
-        border: 1px solid $active-border !important;
-    }
-
     slot {
         padding: 50px;
     }

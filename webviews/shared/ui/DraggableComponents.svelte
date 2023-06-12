@@ -44,6 +44,7 @@
         flipDurationMs, 
         dropFromOthersDisabled: true,
         centreDraggedOnCursor: true,
+        dropTargetStyle: {}
     }} 
     on:consider={handleDndConsider} 
     on:finalize={handleDndFinalize}>

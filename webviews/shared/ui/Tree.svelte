@@ -1,22 +1,34 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
-	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, SHADOW_ITEM_MARKER_PROPERTY_NAME } from 'svelte-dnd-action';
+	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, SHADOW_ITEM_MARKER_PROPERTY_NAME, TRIGGERS } from 'svelte-dnd-action';
     import Component from "./Component.svelte";
+  import { droppableClass } from '../../model/constants';
 
     export let parent;
     export let tree;
 
     let size = Object.keys(tree).length + 1;
 
-    const flipDurationMs = 300;
+    const flipDurationMs = 200;
+    
+    let dropTargetStyle = {};
 
-	function handleDndConsider(e) {
+	function handleDndConsider(e: CustomEvent<DndEvent<any>>) {
         let update = updateNewElement(e.detail.items, true)
 
         if (update.update) {
             e.detail.items.splice(update.i, 1, update.updatedComponent);
         }
 		parent.children = e.detail.items;
+
+        const {trigger} = e.detail.info;
+        const target: HTMLInputElement = e.target as HTMLInputElement;
+
+        if (trigger == TRIGGERS.DRAGGED_ENTERED) {
+            target.classList.add(droppableClass);
+        } else if (trigger === TRIGGERS.DRAGGED_LEFT) {
+            target.classList.remove(droppableClass);
+        }
 	}
     
 	function handleDndFinalize(e) {
@@ -28,6 +40,10 @@
             }
 
             size += 1;
+        }
+        const target: HTMLInputElement = e.target as HTMLInputElement;
+        if (target.classList.contains(droppableClass)) {
+            target.classList.remove(droppableClass);
         }
 		parent.children = e.detail.items;
 		tree = {...tree};
@@ -69,6 +85,7 @@
                 items: parent.children, 
                 flipDurationMs, 
                 centreDraggedOnCursor: true,
+                dropTargetStyle
             }}
             on:consider={handleDndConsider} 
             on:finalize={handleDndFinalize}>		
@@ -83,8 +100,15 @@
     {/if}
 </Component>
 
-<style>
+<style lang="scss">
+    @import "./variables.scss";
+
     section {
         padding: 20px;
+    }
+
+    section:global(.droppable) {
+        border: 1px solid $active-border !important;
+        border-radius: 6px;
     }
 </style>
