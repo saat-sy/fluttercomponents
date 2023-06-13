@@ -14,6 +14,10 @@
     
     let dropTargetStyle = {};
 
+    $: dropFromOthersDisabled = (
+        parent.children.length === parent.component.property.children
+    ); 
+
 	function handleDndConsider(e: CustomEvent<DndEvent<any>>) {
         let update = updateNewElement(e.detail.items, true)
 
@@ -87,6 +91,7 @@
                 flipDurationMs, 
                 centreDraggedOnCursor: true,
                 dropTargetStyle,
+                dropFromOthersDisabled
             }}
             on:consider={handleDndConsider} 
             on:finalize={handleDndFinalize}>		
