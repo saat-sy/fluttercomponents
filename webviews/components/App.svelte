@@ -95,7 +95,7 @@
     </div>
 
     <div class="render">
-        <Tree parent={builderTree.component1} tree={builderTree} />
+        <Tree parent={builderTree.component1} tree={builderTree} main={true} />
     </div>
 
     <div class="properties">

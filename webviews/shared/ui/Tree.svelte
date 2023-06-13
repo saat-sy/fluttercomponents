@@ -2,10 +2,11 @@
 	import { flip } from 'svelte/animate';
 	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, SHADOW_ITEM_MARKER_PROPERTY_NAME, TRIGGERS } from 'svelte-dnd-action';
     import Component from "./Component.svelte";
-  import { droppableClass } from '../../model/constants';
+    import { droppableClass } from '../../model/constants';
 
     export let parent;
     export let tree;
+    export let main: Boolean;
 
     let size = Object.keys(tree).length + 1;
 
@@ -78,21 +79,21 @@
 
 </script>
 
-<Component properties={parent.component.property} >
+<Component properties={parent.component.property} main={main} >
     {#if parent.hasOwnProperty("children")}
         <section 
             use:dndzone={{
                 items: parent.children, 
                 flipDurationMs, 
                 centreDraggedOnCursor: true,
-                dropTargetStyle
+                dropTargetStyle,
             }}
             on:consider={handleDndConsider} 
             on:finalize={handleDndFinalize}>		
 
                 {#each parent.children.filter(item => item.id !== SHADOW_PLACEHOLDER_ITEM_ID) as item(item.id)}
                     <div animate:flip="{{duration: flipDurationMs}}" class="item">
-                        <svelte:self bind:tree={tree} parent={tree[item.id]} />
+                        <svelte:self bind:tree={tree} parent={tree[item.id]} main={false} />
                     </div>
                 {/each}
 

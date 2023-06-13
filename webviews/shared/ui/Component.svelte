@@ -2,6 +2,7 @@
     import Border from "./Border.svelte";
     
     export let properties: PropertiesModel;
+    export let main: Boolean;
 </script>
 
 <style lang="scss">
@@ -16,7 +17,7 @@
     }
 </style>
 
-<div class="inner" >
+<div class={main ? "main" : "inner"}>
     <Border title={properties.title}>
         <slot></slot>
     </Border>
