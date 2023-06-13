@@ -2,6 +2,8 @@
     import DraggableComponents from "../shared/ui/DraggableComponents.svelte";
     import properties from "../properties/properties";
     import Tree from "../shared/ui/Tree.svelte";
+    import { TRIGGERS, dndzone } from "svelte-dnd-action";
+    import Component from "../shared/ui/Component.svelte";
 
     let components: ComponentModel[] = [
         {
@@ -26,30 +28,27 @@
         },
     ]
 
-    let builderTree = {
-        component1: {
-            component: components[0],
-            id: 'component1',
-            children: [
-                {id: "component2"},
-                {id: "component3"},
-                {id: "component4"},
-            ]
-        }, 
-        component2: {
-            component: components[1],
-            id: 'component2',
-            children: []
-        }, 
-        component3: {
-            component: components[2],
-            id: 'component3',
-            children: []
-        }, 
-        component4: {
-            component: components[3],
-            id: 'component4',
-            children: []
+    let firstItem = [];
+    let firstItemHover = false;
+
+    let builderTree = null;
+
+    function emptyOnConsider(e) {
+        if (e.detail.info.trigger == TRIGGERS.DRAGGED_ENTERED) {
+            firstItemHover = true;
+        } else if (e.detail.info.trigger == TRIGGERS.DRAGGED_LEFT) {
+            firstItemHover = false;
+        }
+        firstItem = e.detail.items;
+    }
+
+    function emptyOnFinalize(e) {
+        builderTree = {
+            component1: {
+                component: e.detail.items[0],
+                id: 'component1',
+                children: []
+            }
         }
     }
 </script>
@@ -78,6 +77,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+            .render-first-drop {
+                width: 50%;
+                height: 35%;
+                border: 1px dashed $border;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                span {
+                    z-index: 100;
+                }
+            }
         }
 
         .properties {
@@ -94,9 +107,32 @@
         <DraggableComponents components={components} />
     </div>
 
-    <div class="render">
-        <Tree parent={builderTree.component1} tree={builderTree} main={true} />
-    </div>
+    {#if builderTree == null}
+        <div class="render">
+            <div class="render-first-drop"
+                use:dndzone={{
+                    items: firstItem,
+                    dropTargetStyle: {
+                        "border": "1px solid var(--vscode-tab-activeBorderTop)",
+                        "border-radius": "6px"
+                    }
+                }}
+                on:consider={emptyOnConsider}
+                on:finalize={emptyOnFinalize}>
+                {#each firstItem as item}
+                    <Component properties={item.property} main={true} />
+                {/each}
+                {#if !firstItemHover}
+                    <span>Start dragging elements</span>                   
+                {/if}
+                
+            </div>
+        </div>
+    {:else}
+        <div class="render">
+            <Tree parent={builderTree.component1} tree={builderTree} main={true} />
+        </div>
+    {/if}
 
     <div class="properties">
         <h1>Hello</h1>    
