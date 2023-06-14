@@ -43,7 +43,7 @@
         items: components, 
         flipDurationMs, 
         dropFromOthersDisabled: true,
-        centreDraggedOnCursor: true,
+        // centreDraggedOnCursor: true,
         dropTargetStyle: {}
     }} 
     on:consider={handleDndConsider} 

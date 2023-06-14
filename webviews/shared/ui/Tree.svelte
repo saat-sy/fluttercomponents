@@ -3,6 +3,7 @@
 	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, SHADOW_ITEM_MARKER_PROPERTY_NAME, TRIGGERS } from 'svelte-dnd-action';
     import Component from "./Component.svelte";
     import { droppableClass } from '../../model/constants';
+  import { Alignment } from '../../model/alignment_model';
 
     export let parent;
     export let tree;
@@ -86,6 +87,7 @@
 <Component properties={parent.component.property} main={main} >
     {#if parent.hasOwnProperty("children")}
         <section 
+            class:horizontal={parent.component.property.alignment == Alignment.HORIZONTAL}
             use:dndzone={{
                 items: parent.children, 
                 flipDurationMs, 
@@ -109,6 +111,11 @@
 <style lang="scss">
     @import "./variables.scss";
 
+    .item {
+        width: 100%;
+        margin: 5px;
+    }
+
     section {
         padding: 20px;
     }
@@ -116,5 +123,12 @@
     section:global(.droppable) {
         border: 1px solid $active-border !important;
         border-radius: 6px;
+    }
+
+    section:global(.horizontal) {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        overflow-x: auto;
     }
 </style>

@@ -7,7 +7,7 @@
 
 <style lang="scss">
     .main {
-        width: 40%;
+        width: 50%;
         margin-bottom: 15px;
     }
 
