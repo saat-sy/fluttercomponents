@@ -3,6 +3,8 @@
     
     export let properties: PropertiesModel;
     export let main: Boolean;
+    export let componentClick: (event, component: ComponentModel) => void;
+    export let component: ComponentModel;
 </script>
 
 <style lang="scss">
@@ -17,7 +19,8 @@
     }
 </style>
 
-<div class={main ? "main" : "inner"}>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div on:click={(event) => componentClick(event, component)} class={main ? "main" : "inner"}>
     <Border title={properties.title}>
         <slot></slot>
     </Border>

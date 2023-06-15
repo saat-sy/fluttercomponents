@@ -20,6 +20,10 @@
             border: 1px solid $border;
             border-radius: 6px;
         }
+
+        span {
+            user-select: none;
+        }
     }
 
     slot {

@@ -3,7 +3,7 @@
 	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, SHADOW_ITEM_MARKER_PROPERTY_NAME, TRIGGERS } from 'svelte-dnd-action';
     import Component from "./Component.svelte";
     import { droppableClass } from '../../model/constants';
-  import { Alignment } from '../../model/alignment_model';
+    import { Alignment } from '../../model/alignment_model';
 
     export let parent;
     export let tree;
@@ -64,6 +64,9 @@
                 tree[`component${size}`] = {
                     component: elements[i],
                     id: `component${size}`,
+                    active: {
+                        status: false,
+                    },
                     children: []
                 }
             }
@@ -82,9 +85,43 @@
         return {update: false};
     }
 
+    function componentClick(event, component: ComponentModel) {
+        let status: boolean;
+        let targetComponent;
+
+        if (event.target.classList.contains("active")) {
+            event.target.classList.remove("active");
+            status = false;
+            targetComponent = undefined;
+        } else {
+            event.target.classList.add("active");
+            status = true;
+            targetComponent = event.target;
+        }
+
+        for (let c in tree) {
+            let activeComp = tree[c].active;
+            if (component === tree[c].component) {
+                activeComp.status = status;
+                activeComp.component = targetComponent;
+            } else if (targetComponent != undefined) {
+                if (activeComp.status) {
+                    activeComp.status = false;
+                    activeComp.component.classList.remove("active");
+                    activeComp.component = undefined;
+                }
+            }
+        }
+
+        event.stopPropagation();
+    }
 </script>
 
-<Component properties={parent.component.property} main={main} >
+<Component 
+    component={parent.component}
+    componentClick={(event, component) => {componentClick(event, component)}}
+    properties={parent.component.property} 
+    main={main} >
     {#if parent.hasOwnProperty("children")}
         <section 
             class:horizontal={parent.component.property.alignment == Alignment.HORIZONTAL}
@@ -130,5 +167,11 @@
         flex-direction: row;
         justify-content: center;
         overflow-x: auto;
+    }
+
+    section:global(.active) {
+        box-sizing: border-box;
+        border: 1px solid $active-border !important;
+        border-radius: 6px;
     }
 </style>

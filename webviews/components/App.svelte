@@ -31,7 +31,44 @@
     let firstItem = [];
     let firstItemHover = false;
 
-    let builderTree = null;
+    let builderTree = {
+        component1: {
+            component: components[1],
+            id: 'component1',
+            active: {
+                status: false
+            },
+            children: [
+                {id: "component2"},
+                {id: "component3"},
+                {id: "component4"},
+            ]
+        }, 
+        component2: {
+            component: components[0],
+            id: 'component2',
+            active: {
+                status: false
+            },
+            children: []
+        }, 
+        component3: {
+            component: components[2],
+            id: 'component3',
+            active: {
+                status: false
+            },
+            children: []
+        }, 
+        component4: {
+            component: components[3],
+            id: 'component4',
+            active: {
+                status: false
+            },
+            children: []
+        }
+    }
 
     function emptyOnConsider(e) {
         if (e.detail.info.trigger == TRIGGERS.DRAGGED_ENTERED) {
@@ -43,13 +80,15 @@
     }
 
     function emptyOnFinalize(e) {
-        builderTree = {
-            component1: {
-                component: e.detail.items[0],
-                id: 'component1',
-                children: []
-            }
-        }
+        //TODO: FIX
+
+        // builderTree = {
+        //     component1: {
+        //         component: e.detail.items[0],
+        //         id: 'component1',
+        //         children: []
+        //     }
+        // }
     }
 </script>
 
@@ -120,7 +159,10 @@
                 on:consider={emptyOnConsider}
                 on:finalize={emptyOnFinalize}>
                 {#each firstItem as item}
-                    <Component properties={item.property} main={true} />
+                    <!-- <Component 
+                        properties={item.property} 
+                        main={true} /> -->
+                        <span>item</span>
                 {/each}
                 {#if !firstItemHover}
                     <span>Start dragging elements</span>                   
@@ -135,6 +177,6 @@
     {/if}
 
     <div class="properties">
-        <h1>Hello</h1>    
+        <h1 style="user-select: none;">Hello</h1>    
     </div>
 </div>
