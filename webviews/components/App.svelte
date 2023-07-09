@@ -4,6 +4,8 @@
     import Tree from "../shared/ui/Tree.svelte";
     import { TRIGGERS, dndzone } from "svelte-dnd-action";
     import Component from "../shared/ui/Component.svelte";
+  import type { ComponentModel } from "../model/component_model";
+  import UiBorder from "../shared/properties/UiBorder.svelte";
 
     let components: ComponentModel[] = [
         {
@@ -92,6 +94,64 @@
     }
 </script>
 
+<div class="main">
+    <div class="components">
+        <DraggableComponents components={components} />
+    </div>
+
+    {#if builderTree == null}
+        <div class="render">
+            <div class="render-first-drop"
+                use:dndzone={{
+                    items: firstItem,
+                    dropTargetStyle: {
+                        "border": "1px solid var(--vscode-tab-activeBorderTop)",
+                        "border-radius": "6px"
+                    }
+                }}
+                on:consider={emptyOnConsider}
+                on:finalize={emptyOnFinalize}>
+                {#each firstItem as item}
+                    <!-- <Component 
+                        properties={item.property} 
+                        main={true} /> -->
+                        <span>item</span>
+                {/each}
+                {#if !firstItemHover}
+                    <span>Start dragging elements</span>                   
+                {/if}
+                
+            </div>
+        </div>
+    {:else}
+        <div class="render">
+            <Tree 
+                parent={builderTree.component1} 
+                bind:tree={builderTree} 
+                main={true} />
+        </div>
+    {/if}
+
+    <div class="properties">
+        {#each Object.entries(builderTree) as [_, data]}
+            {#if data.active.status}
+                {#each Object.entries(data.component.property) as [_, property]} 
+                    {#if property.component}
+                        <svelte:component this={property.component} bind:properties={property} />
+                        <UiBorder />
+                    {/if}
+                {/each}
+                <div class="customProps">
+                    <h3>{data.component.name} Properties</h3>
+                    {#each Object.entries(data.component.property.customProperties) as [_, property]}
+                        <svelte:component this={property.component} bind:properties={property} />
+                    {/each}
+                </div>
+            {/if}
+        {/each}   
+    </div>
+</div>
+
 <style lang="scss">
     @import "../shared/ui/variables.scss";
 
@@ -139,44 +199,12 @@
             background-color: $background-light;
         }
     }
+
+    .customProps {
+        margin: 10px;
+
+        h3 {
+            margin-bottom: 10px;
+        }
+    }
 </style>
-
-<div class="main">
-    <div class="components">
-        <DraggableComponents components={components} />
-    </div>
-
-    {#if builderTree == null}
-        <div class="render">
-            <div class="render-first-drop"
-                use:dndzone={{
-                    items: firstItem,
-                    dropTargetStyle: {
-                        "border": "1px solid var(--vscode-tab-activeBorderTop)",
-                        "border-radius": "6px"
-                    }
-                }}
-                on:consider={emptyOnConsider}
-                on:finalize={emptyOnFinalize}>
-                {#each firstItem as item}
-                    <!-- <Component 
-                        properties={item.property} 
-                        main={true} /> -->
-                        <span>item</span>
-                {/each}
-                {#if !firstItemHover}
-                    <span>Start dragging elements</span>                   
-                {/if}
-                
-            </div>
-        </div>
-    {:else}
-        <div class="render">
-            <Tree parent={builderTree.component1} tree={builderTree} main={true} />
-        </div>
-    {/if}
-
-    <div class="properties">
-        <h1 style="user-select: none;">Hello</h1>    
-    </div>
-</div>

@@ -4,6 +4,7 @@
     import Component from "./Component.svelte";
     import { droppableClass } from '../../model/constants';
     import { Alignment } from '../../model/alignment_model';
+  import type { ComponentModel } from '../../model/component_model';
 
     export let parent;
     export let tree;
@@ -112,7 +113,7 @@
                 }
             }
         }
-
+		tree = {...tree};
         event.stopPropagation();
     }
 </script>

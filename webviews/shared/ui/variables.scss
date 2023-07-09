@@ -1,7 +1,10 @@
 $component-width: 25%;
 $render-width: 50%;
 $properties-width: 25%;
+$foreground: var(--vscode-foreground);
 $background-dark: var(--vscode-sideBar-background);
 $background-light: var(--vscode-editor-background);
 $border: var(--vscode-panel-border);
-$active-border: var(--vscode-tab-activeBorderTop)
+$active-border: var(--vscode-tab-activeBorderTop);
+$inactive: var(--vscode-panelTitle-inactiveForeground);
+$input-background: var(--vscode-input-background);
