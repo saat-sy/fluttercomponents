@@ -4,8 +4,9 @@
     import Tree from "../shared/ui/Tree.svelte";
     import { TRIGGERS, dndzone } from "svelte-dnd-action";
     import Component from "../shared/ui/Component.svelte";
-  import type { ComponentModel } from "../model/component_model";
-  import UiBorder from "../shared/properties/UiBorder.svelte";
+    import type { ComponentModel } from "../model/component_model";
+    import UiBorder from "../shared/properties/UiBorder.svelte";
+    import type { TreeComponent } from "../model/tree";
 
     let components: ComponentModel[] = [
         {
@@ -33,44 +34,46 @@
     let firstItem = [];
     let firstItemHover = false;
 
-    let builderTree = {
-        component1: {
-            component: components[1],
-            id: 'component1',
-            active: {
-                status: false
-            },
-            children: [
-                {id: "component2"},
-                {id: "component3"},
-                {id: "component4"},
-            ]
-        }, 
-        component2: {
-            component: components[0],
-            id: 'component2',
-            active: {
-                status: false
-            },
-            children: []
-        }, 
-        component3: {
-            component: components[2],
-            id: 'component3',
-            active: {
-                status: false
-            },
-            children: []
-        }, 
-        component4: {
-            component: components[3],
-            id: 'component4',
-            active: {
-                status: false
-            },
-            children: []
-        }
-    }
+    // let builderTree = {
+    //     component1: {
+    //         component: components[1],
+    //         id: 'component1',
+    //         active: {
+    //             status: false
+    //         },
+    //         children: [
+    //             {id: "component2"},
+    //             {id: "component3"},
+    //             {id: "component4"},
+    //         ]
+    //     }, 
+    //     component2: {
+    //         component: components[0],
+    //         id: 'component2',
+    //         active: {
+    //             status: false
+    //         },
+    //         children: []
+    //     }, 
+    //     component3: {
+    //         component: components[2],
+    //         id: 'component3',
+    //         active: {
+    //             status: false
+    //         },
+    //         children: []
+    //     }, 
+    //     component4: {
+    //         component: components[3],
+    //         id: 'component4',
+    //         active: {
+    //             status: false
+    //         },
+    //         children: []
+    //     }
+    // }
+
+    let builderTree: TreeComponent = {};
 
     function emptyOnConsider(e) {
         if (e.detail.info.trigger == TRIGGERS.DRAGGED_ENTERED) {
@@ -82,15 +85,16 @@
     }
 
     function emptyOnFinalize(e) {
-        //TODO: FIX
-
-        // builderTree = {
-        //     component1: {
-        //         component: e.detail.items[0],
-        //         id: 'component1',
-        //         children: []
-        //     }
-        // }
+        builderTree = {
+            component1: {
+                component: e.detail.items[0],
+                id: 'component1',
+                children: [],
+                active: {
+                    status: false
+                }
+            }
+        }
     }
 </script>
 
@@ -99,7 +103,7 @@
         <DraggableComponents components={components} />
     </div>
 
-    {#if builderTree == null}
+    {#if Object.keys(builderTree).length === 0}
         <div class="render">
             <div class="render-first-drop"
                 use:dndzone={{
@@ -111,12 +115,15 @@
                 }}
                 on:consider={emptyOnConsider}
                 on:finalize={emptyOnFinalize}>
-                {#each firstItem as item}
-                    <!-- <Component 
-                        properties={item.property} 
-                        main={true} /> -->
-                        <span>item</span>
-                {/each}
+                {#if firstItem.length != 0}
+                    {#each firstItem as item}
+                        <Component 
+                            properties={item.property} 
+                            main={true}
+                            component={item}
+                            componentClick={()=>{}} />
+                    {/each}
+                {/if}
                 {#if !firstItemHover}
                     <span>Start dragging elements</span>                   
                 {/if}

@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { PropertiesModel } from "../../model/properties_model";
+    import type { ComponentModel } from "../../model/component_model";
+    import type { PropertiesModel } from "../../model/properties_model";
     import Border from "./Border.svelte";
     
     export let properties: PropertiesModel;
