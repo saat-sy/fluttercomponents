@@ -13,7 +13,11 @@ export class ComponentPanel {
   private readonly _extensionUri: vscode.Uri;
   private _disposables: vscode.Disposable[] = [];
 
+  private static activeTextEditor?: vscode.TextEditor;
+
   public static createOrShow(extensionUri: vscode.Uri) {
+    this.activeTextEditor = vscode.window.activeTextEditor;
+
     const column = vscode.window.activeTextEditor
       ? vscode.window.activeTextEditor.viewColumn
       : undefined;
@@ -103,7 +107,14 @@ export class ComponentPanel {
           if (!data.value) {
             return;
           }
-          vscode.window.showInformationMessage(data.value);
+          
+          if (!ComponentPanel.activeTextEditor) {
+            vscode.window.showErrorMessage("No active window");
+          } else {
+            console.log(ComponentPanel.activeTextEditor.document.fileName);
+            await this.editCode(data.value);
+          }
+
           break;
         }
         case "onError": {
@@ -120,6 +131,32 @@ export class ComponentPanel {
         // }
       }
     });
+  }
+
+  private async editCode(code) {
+    const uri = vscode.Uri.file(ComponentPanel.activeTextEditor!.document.fileName);
+    const document = await vscode.workspace.openTextDocument(uri);
+  
+    if (document.isClosed) {
+      throw new Error('Cannot edit a closed document.');
+    }
+    
+    const edit = new vscode.WorkspaceEdit();
+    edit.replace(uri, new vscode.Range(
+      new vscode.Position(
+        ComponentPanel.activeTextEditor!.selection.active.line,
+        ComponentPanel.activeTextEditor!.selection.active.character
+      ), 
+      new vscode.Position(
+        ComponentPanel.activeTextEditor!.selection.active.line,
+        ComponentPanel.activeTextEditor!.selection.active.character + 1
+      )
+      ), 
+      "This is shit"
+    );
+    
+    await vscode.workspace.applyEdit(edit);
+    await document.save();
   }
 
   private _getHtmlForWebview(webview: vscode.Webview) {
@@ -157,9 +194,11 @@ export class ComponentPanel {
 				<link href="${stylesResetUri}" rel="stylesheet">
 				<link href="${stylesMainUri}" rel="stylesheet">
 				<link href="${cssUri}" rel="stylesheet">
-        <script nonce="${nonce}"></script>
+        <script nonce="${nonce}">
+          const webVscode = acquireVsCodeApi();
+        </script>
 		</head>
-        <body>
+      <body>
         <script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
 			</html>`;

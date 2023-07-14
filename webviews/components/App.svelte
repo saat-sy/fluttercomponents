@@ -96,6 +96,13 @@
             }
         }
     }
+    
+    $: if (builderTree) {
+        webVscode.postMessage({
+            type: "onInfo",
+            value: "Yessssssssssssssssssssssssssss"
+        });
+    }
 </script>
 
 <div class="main">
