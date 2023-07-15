@@ -15,5 +15,9 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        label {
+            user-select: none;
+        }
     }
 </style>

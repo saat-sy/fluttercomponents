@@ -6,9 +6,7 @@ export interface PropertiesModel {
     title: string,
     children: number,
     alignment: Alignment,
-    size: Size,
     position: Position,
-    padding?: Padding,
-    margin?: Margin,
+    padding: Padding,
     customProperties: CustomPropertiesType
 }

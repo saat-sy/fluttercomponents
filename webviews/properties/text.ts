@@ -5,8 +5,8 @@ import CheckBox from "../shared/custom_properties/CheckBox.svelte";
 import ColorPicker from "../shared/custom_properties/ColorPicker.svelte";
 import Dropdown from "../shared/custom_properties/Dropdown.svelte";
 import TextField from "../shared/custom_properties/TextField.svelte";
+import Padding from "../shared/properties/Padding.svelte";
 import PositionDesign from "../shared/properties/Position.svelte";
-import SizeDesign from "../shared/properties/Size.svelte";
 
 const customProperties: CustomTextProperties = {
     text: {
@@ -58,14 +58,12 @@ export const textProperties: PropertiesModel = {
     title: "Text",
     children: 1,
     alignment: Alignment.ANY,
-    size: {
-        component: SizeDesign,
-        width: "100%",
-        height: "100%"
-    },
     position: {
         component: PositionDesign,
         centerAlign: true
+    },
+    padding: {
+        component: Padding
     },
     customProperties: customProperties,
 };

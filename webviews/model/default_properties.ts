@@ -1,30 +1,15 @@
-export interface Size {
-    component: any
-    width: string, // only % for now
-    height: string
-}
-
-export interface Position {
+export interface DefaultPositionProperties {
     component: any
     leftAlign?: boolean,
     rightAlign?: boolean,
     centerAlign?: boolean
 }
 
-export interface Padding {
+export interface DefaultPaddingProperties {
     component: any
-    padding?: number,
-    paddingStart?: number,
-    paddingEnd?: number,
-    paddingTop?: number,
-    paddingBottom?: number 
-}
-
-export interface Margin {
-    component: any
-    margin?: number,
-    marginStart?: number,
-    marginEnd?: number,
-    marginTop?: number,
-    marginBottom?: number 
+    padding?: string,
+    paddingStart?: string,
+    paddingEnd?: string,
+    paddingTop?: string,
+    paddingBottom?: string 
 }

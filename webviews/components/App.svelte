@@ -98,10 +98,10 @@
     }
     
     $: if (builderTree) {
-        webVscode.postMessage({
-            type: "onInfo",
-            value: "Yessssssssssssssssssssssssssss"
-        });
+        // webVscode.postMessage({
+        //     type: "onInfo",
+        //     value: "Yessssssssssssssssssssssssssss"
+        // });
     }
 </script>
 
@@ -149,18 +149,19 @@
     <div class="properties">
         {#each Object.entries(builderTree) as [_, data]}
             {#if data.active.status}
-                {#each Object.entries(data.component.property) as [_, property]} 
-                    {#if property.component}
-                        <svelte:component this={property.component} bind:properties={property} />
-                        <UiBorder />
-                    {/if}
-                {/each}
                 <div class="customProps">
                     <h3>{data.component.name} Properties</h3>
                     {#each Object.entries(data.component.property.customProperties) as [_, property]}
                         <svelte:component this={property.component} bind:properties={property} />
                     {/each}
                 </div>
+                <UiBorder />
+                {#each Object.entries(data.component.property) as [_, property]} 
+                    {#if property.component}
+                        <svelte:component this={property.component} bind:properties={property} />
+                        <UiBorder />
+                    {/if}
+                {/each}
             {/if}
         {/each}   
     </div>
@@ -218,7 +219,7 @@
         margin: 10px;
 
         h3 {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
     }
 </style>
