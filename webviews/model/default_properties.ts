@@ -1,8 +1,6 @@
 export interface DefaultPositionProperties {
     component: any
-    leftAlign?: boolean,
-    rightAlign?: boolean,
-    centerAlign?: boolean
+    align?: number
 }
 
 export interface DefaultPaddingProperties {

@@ -101,7 +101,6 @@
                 user-select: none;
                 font-size: 23px;
                 margin-right: 5px;
-                z-index: 1;
             }
 
             h3 {
