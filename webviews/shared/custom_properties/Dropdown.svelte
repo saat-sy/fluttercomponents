@@ -1,7 +1,9 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <script lang="ts">
     import type { DropDownProperties } from "../../model/custom_properties";
+    import type { TreeComponent } from "../../model/tree";
     export let properties: DropDownProperties;
+    export let tree: TreeComponent;
 
     let menuOpen = false;
 
@@ -15,6 +17,7 @@
 
     function optionClicked(value: string) {
         properties.active = properties.values.indexOf(value);
+        tree = {...tree};
         menuOpen = false;
     }
 </script>

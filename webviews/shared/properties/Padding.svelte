@@ -1,8 +1,10 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <script lang="ts">
     import type { DefaultPaddingProperties } from "../../model/default_properties";
+    import type { TreeComponent } from "../../model/tree";
 
     export let properties: DefaultPaddingProperties;
+    export let tree: TreeComponent;
 
     let expanded = false;
     const expand = () => expanded = true;
@@ -13,6 +15,7 @@
         properties.paddingStart = undefined;
         properties.paddingEnd = undefined;
         properties.padding = undefined;
+        updateTree();
         e.stopPropagation();    
     };
 
@@ -23,11 +26,17 @@
         properties.paddingTop = properties.padding;
         properties.paddingStart = properties.padding;
         properties.paddingEnd = properties.padding;
+        updateTree();
         return false;
     }
 
     const changePadding = () => {
-        properties.padding = "~"
+        properties.padding = "~";
+        updateTree();
+    }
+
+    function updateTree() {
+        tree = {...tree};
     }
 </script>
 

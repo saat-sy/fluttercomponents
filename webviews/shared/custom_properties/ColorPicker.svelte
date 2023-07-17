@@ -1,10 +1,13 @@
 <script lang="ts">
     import type { ColorPickerProperties } from "../../model/custom_properties";
+  import type { TreeComponent } from "../../model/tree";
 
     export let properties: ColorPickerProperties;
+    export let tree: TreeComponent;
 
     function handleColorChange(event) {
         properties.color = event.target.value;
+        tree = {...tree};
     }
 </script>
 

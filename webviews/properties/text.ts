@@ -1,3 +1,4 @@
+import TextComponent from "../components/TextComponent.svelte";
 import { Alignment } from "../model/alignment_model";
 import type { CheckBoxProperties, ColorPickerProperties, DropDownProperties, TextFieldProperties } from "../model/custom_properties";
 import type { PropertiesModel } from "../model/properties_model";
@@ -16,29 +17,49 @@ const customProperties: CustomTextProperties = {
     },
     fontSize: {
         component: TextField,
-        value: "",
+        value: "14",
         title: "Font Size"
     },
     color: {
         component: ColorPicker,
-        color: "",
+        color: "#FFFFFF",
         title: "Text Color"
     },
     fontWeight: {
         component: Dropdown,
-        values: [],
-        active: 0,
+        values: [
+            "100 - Thin",
+            "200 - Extra-light",
+            "300 - Light",
+            "400 - Normal",
+            "500 - Medium",
+            "600 - Semi-bold",
+            "700 - Bold",
+            "800 - Extra-bold",
+            "900 - Black",
+        ],
+        active: 3,
         title: "Font Weight"
     },
     textAlign: {
         component: Dropdown,
-        values: [],
+        values: [
+            "Left",
+            "Center",
+            "Right",
+            "Justify"
+        ],
         active: 0,
         title: "Text Align"
     },
     styling: {
         component: Dropdown,
-        values: [],
+        values: [
+            "Normal",
+            "Italic",
+            "Underline",
+            "Line-through"
+        ],
         active: 0,
         title: "Styling"
     },
@@ -55,12 +76,13 @@ const customProperties: CustomTextProperties = {
 };
 
 export const textProperties: PropertiesModel = {
+    component: TextComponent,
     title: "Text",
-    children: 1,
+    children: 0,
     alignment: Alignment.ANY,
     position: {
         component: PositionDesign,
-        centerAlign: true
+        align: 0
     },
     padding: {
         component: Padding

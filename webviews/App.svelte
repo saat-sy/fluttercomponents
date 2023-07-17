@@ -1,12 +1,12 @@
 <script lang="ts">
-    import DraggableComponents from "../shared/ui/DraggableComponents.svelte";
-    import properties from "../properties/properties";
-    import Tree from "../shared/ui/Tree.svelte";
+    import DraggableComponents from "./shared/ui/DraggableComponents.svelte";
+    import properties from "./properties/properties";
+    import Tree from "./shared/ui/Tree.svelte";
     import { TRIGGERS, dndzone } from "svelte-dnd-action";
-    import Component from "../shared/ui/Component.svelte";
-    import type { ComponentModel } from "../model/component_model";
-    import UiBorder from "../shared/properties/UiBorder.svelte";
-    import type { TreeComponent } from "../model/tree";
+    import Component from "./shared/ui/Component.svelte";
+    import type { ComponentModel } from "./model/component_model";
+    import UiBorder from "./shared/properties/UiBorder.svelte";
+    import type { TreeComponent } from "./model/tree";
 
     let components: ComponentModel[] = [
         {
@@ -102,6 +102,7 @@
         //     type: "onInfo",
         //     value: "Yessssssssssssssssssssssssssss"
         // });
+        // console.log("YESSSSSSSSSs");
     }
 </script>
 
@@ -140,7 +141,7 @@
     {:else}
         <div class="render">
             <Tree 
-                parent={builderTree.component1} 
+                bind:parent={builderTree.component1} 
                 bind:tree={builderTree} 
                 main={true} />
         </div>
@@ -152,13 +153,13 @@
                 <div class="customProps">
                     <h3>{data.component.name} Properties</h3>
                     {#each Object.entries(data.component.property.customProperties) as [_, property]}
-                        <svelte:component this={property.component} bind:properties={property} />
+                        <svelte:component this={property.component} bind:properties={property} bind:tree={builderTree} />
                     {/each}
                 </div>
                 <UiBorder />
                 {#each Object.entries(data.component.property) as [_, property]} 
                     {#if property.component}
-                        <svelte:component this={property.component} bind:properties={property} />
+                        <svelte:component this={property.component} bind:properties={property} bind:tree={builderTree} />
                         <UiBorder />
                     {/if}
                 {/each}
@@ -168,7 +169,7 @@
 </div>
 
 <style lang="scss">
-    @import "../shared/ui/variables.scss";
+    @import "shared/ui/variables.scss";
 
     .main {
         width: 100%;

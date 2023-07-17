@@ -23,7 +23,11 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div on:click={(event) => componentClick(event, component)} class={main ? "main" : "inner"}>
-    <Border title={properties.title}>
-        <slot></slot>
-    </Border>
+    {#if properties.component}
+        <svelte:component this="{properties.component}" bind:properties={properties}/>
+    {:else}
+        <Border title={properties.title}>
+            <slot></slot>
+        </Border>
+    {/if}
 </div>

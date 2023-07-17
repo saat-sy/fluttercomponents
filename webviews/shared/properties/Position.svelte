@@ -1,9 +1,11 @@
 <script lang="ts">
     import type { DropDownProperties } from "../../model/custom_properties";
     import type { DefaultPositionProperties } from "../../model/default_properties";
+    import type { TreeComponent } from "../../model/tree";
     import Dropdown from "../custom_properties/Dropdown.svelte";
 
     export let properties: DefaultPositionProperties;
+    export let tree: TreeComponent;
 
     let dropdown: DropDownProperties = {
         component: Dropdown,
@@ -18,6 +20,7 @@
 
     $: if (properties) {
         properties.align = dropdown.active;
+        tree = {...tree};
     }
 </script>
 <div class="container">

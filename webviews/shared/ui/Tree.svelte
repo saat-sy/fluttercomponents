@@ -4,10 +4,11 @@
     import Component from "./Component.svelte";
     import { droppableClass } from '../../model/constants';
     import { Alignment } from '../../model/alignment_model';
-  import type { ComponentModel } from '../../model/component_model';
+    import type { ComponentModel } from '../../model/component_model';
+  import type { TreeComponent } from '../../model/tree';
 
     export let parent;
-    export let tree;
+    export let tree: TreeComponent;
     export let main: Boolean;
 
     let size = Object.keys(tree).length + 1;
@@ -121,7 +122,7 @@
 <Component 
     component={parent.component}
     componentClick={(event, component) => {componentClick(event, component)}}
-    properties={parent.component.property} 
+    bind:properties={parent.component.property} 
     main={main} >
     {#if parent.hasOwnProperty("children")}
         <section 
