@@ -1,6 +1,6 @@
 import type { ComponentModel } from "./component_model";
 
-interface TreeModel {
+export interface TreeModel {
     component: ComponentModel,
     id: string,
     children: TreeModel[],
@@ -11,7 +11,7 @@ export interface TreeComponent {
     [componentId: string] : TreeModel
 }
 
-interface ActiveModel {
+export interface ActiveModel {
     status: boolean,
     component?: ComponentModel
 }

@@ -129,7 +129,8 @@
                             properties={item.property} 
                             main={true}
                             component={item}
-                            componentClick={()=>{}} />
+                            componentClick={()=>{}}
+                            activeStatus={{status: false}} />
                     {/each}
                 {/if}
                 {#if !firstItemHover}

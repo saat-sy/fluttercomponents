@@ -5,9 +5,9 @@
     import { droppableClass } from '../../model/constants';
     import { Alignment } from '../../model/alignment_model';
     import type { ComponentModel } from '../../model/component_model';
-  import type { TreeComponent } from '../../model/tree';
+    import type { TreeComponent, TreeModel } from '../../model/tree';
 
-    export let parent;
+    export let parent: TreeModel;
     export let tree: TreeComponent;
     export let main: Boolean;
 
@@ -123,7 +123,8 @@
     component={parent.component}
     componentClick={(event, component) => {componentClick(event, component)}}
     bind:properties={parent.component.property} 
-    main={main} >
+    main={main}
+    activeStatus={parent.active} >
     {#if parent.hasOwnProperty("children")}
         <section 
             class:horizontal={parent.component.property.alignment == Alignment.HORIZONTAL}

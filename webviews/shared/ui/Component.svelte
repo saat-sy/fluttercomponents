@@ -1,12 +1,14 @@
 <script lang="ts">
     import type { ComponentModel } from "../../model/component_model";
     import type { PropertiesModel } from "../../model/properties_model";
+    import type { ActiveModel } from "../../model/tree";
     import Border from "./Border.svelte";
     
     export let properties: PropertiesModel;
     export let main: Boolean;
     export let componentClick: (event, component: ComponentModel) => void;
     export let component: ComponentModel;
+    export let activeStatus: ActiveModel;
 </script>
 
 <style lang="scss">
@@ -24,7 +26,10 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div on:click={(event) => componentClick(event, component)} class={main ? "main" : "inner"}>
     {#if properties.component}
-        <svelte:component this="{properties.component}" bind:properties={properties}/>
+        <svelte:component 
+            this="{properties.component}" 
+            bind:properties={properties}
+            bind:active={activeStatus}/>
     {:else}
         <Border title={properties.title}>
             <slot></slot>
