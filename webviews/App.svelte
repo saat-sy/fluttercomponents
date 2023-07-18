@@ -189,7 +189,7 @@
             float:left;
             height: 100%;
             width: $render-width;
-            background-color: $background-dark;
+            background-color: $background;
             display: flex;
             align-items: center;
             justify-content: center;
