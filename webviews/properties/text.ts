@@ -22,7 +22,7 @@ const customProperties: CustomTextProperties = {
     },
     color: {
         component: ColorPicker,
-        color: "#FFFFFF",
+        color: "#000000",
         title: "Text Color"
     },
     fontWeight: {

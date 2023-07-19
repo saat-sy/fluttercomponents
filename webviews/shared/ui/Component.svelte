@@ -12,27 +12,39 @@
 </script>
 
 <style lang="scss">
-    .main {
-        width: 50%;
-        margin-bottom: 15px;
-    }
-
-    .inner {
+    .component-container {
         width: 100%;
-        margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .main {
+            width: 50%;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .inner {
+            width: 100%;
+            margin-bottom: 15px;
+        }
     }
 </style>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div on:click={(event) => componentClick(event, component)} class={main ? "main" : "inner"}>
-    {#if properties.component}
-        <svelte:component 
-            this="{properties.component}" 
-            bind:properties={properties}
-            bind:active={activeStatus}/>
-    {:else}
-        <Border title={properties.title}>
-            <slot></slot>
-        </Border>
-    {/if}
+<div class="component-container">
+    <div on:click={(event) => componentClick(event, component)} class="{main ? "main" : "inner"}">
+        {#if properties.component}
+            <svelte:component 
+                this="{properties.component}" 
+                bind:properties={properties}
+                bind:active={activeStatus}/>
+        {:else}
+            <Border title={properties.title}>
+                <slot></slot>
+            </Border>
+        {/if}
+    </div>
 </div>
