@@ -21,7 +21,7 @@
             use:cssVariables={
                 {
                     fontSize: `${textProperties.fontSize.value}px`,
-                    color: textProperties.color.color,
+                    color: textProperties.color.value,
                     fontWeight: textProperties.fontWeight.values
                         [textProperties.fontWeight.active]
                         .split("-")[0]
@@ -38,7 +38,6 @@
                         [textProperties.styling.active] != "Italic" ?
                         textProperties.styling.values
                         [textProperties.styling.active].toLowerCase() : "none",
-                    userSelect: textProperties.selectable.checked ? 'auto' : 'none',
                 }
             }>
             {textProperties.text.value}
@@ -58,7 +57,7 @@
             text-align: var(--textAlign);
             font-style: var(--fontStyle);
             text-decoration: var(--textDecoration);
-            user-select: var(--userSelect);
+            user-select: none;
         }
     }
 </style>

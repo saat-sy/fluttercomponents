@@ -6,7 +6,7 @@
     export let tree: TreeComponent;
 
     function handleColorChange(event) {
-        properties.color = event.target.value;
+        properties.value = event.target.value;
         tree = {...tree};
     }
 </script>
@@ -17,9 +17,9 @@
         <input 
             class="color-input" 
             type="color" 
-            bind:value="{properties.color}" 
+            bind:value="{properties.value}" 
             on:input="{handleColorChange}">
-        <span>{properties.color != "" ? properties.color : "Choose a color"}</span>
+        <span>{properties.value != "" ? properties.value : "Choose a color"}</span>
     </div>
 </div>
 

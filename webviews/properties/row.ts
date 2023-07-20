@@ -10,7 +10,9 @@ const customProperties: CustomRowProperties = {
         title: "Main Axis Size",
         component: Dropdown,
         values: ["Max", "Min"],
-        active: 0
+        active: 0,
+        default: 0,
+        required: false
     },
     crossAxisAlignment: {
         title: "Cross Axis Alignment",
@@ -21,7 +23,9 @@ const customProperties: CustomRowProperties = {
             "End",
             "Stretch"
         ],
-        active: 0
+        active: 0,
+        default: 0,
+        required: false
     },
     mainAxisAlignment: {
         title: "Main Axis Alignment",
@@ -34,7 +38,9 @@ const customProperties: CustomRowProperties = {
             "Space Between",
             "Space Around"
         ],
-        active: 0
+        active: 0,
+        default: 0,
+        required: false
     }
 };
 
@@ -44,7 +50,7 @@ export const rowProperties: PropertiesModel = {
     alignment: Alignment.HORIZONTAL,
     position: {
         component: PositionDesign,
-        centerAlign: true
+        align: 0
     },
     padding: {
         component: Padding

@@ -1,5 +1,7 @@
 import * as vscode from "vscode";
-import { getNonce } from "./common/nonce";
+import { getNonce } from "../common/nonce";
+import { generateCode } from "./generateCode";
+import { CodeTemplate } from "../common/code";
 
 export class ComponentPanel {
   /**
@@ -107,12 +109,13 @@ export class ComponentPanel {
           if (!data.value) {
             return;
           }
-          
+          let code = generateCode(data.value as CodeTemplate);
+          console.log(code);
           if (!ComponentPanel.activeTextEditor) {
             vscode.window.showErrorMessage("No active window");
           } else {
             console.log(ComponentPanel.activeTextEditor.document.fileName);
-            await this.editCode(data.value);
+            // await this.editCode(data.value);
           }
 
           break;
@@ -133,7 +136,7 @@ export class ComponentPanel {
     });
   }
 
-  private async editCode(code) {
+  private async editCode(code: string) {
     const uri = vscode.Uri.file(ComponentPanel.activeTextEditor!.document.fileName);
     const document = await vscode.workspace.openTextDocument(uri);
   

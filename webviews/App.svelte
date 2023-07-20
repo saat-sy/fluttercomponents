@@ -7,6 +7,7 @@
     import type { ComponentModel } from "./model/component_model";
     import UiBorder from "./shared/properties/UiBorder.svelte";
     import type { TreeComponent } from "./model/tree";
+	import { convertBuilderTreeToCode } from "./helper/builderTree_to_code";
 
     let components: ComponentModel[] = [
         {
@@ -98,10 +99,10 @@
     }
     
     $: if (builderTree) {
-        // webVscode.postMessage({
-        //     type: "onInfo",
-        //     value: "Yessssssssssssssssssssssssssss"
-        // });
+        webVscode.postMessage({
+            type: "onInfo",
+            value: convertBuilderTreeToCode(builderTree)
+        });
         // console.log("YESSSSSSSSSs");
     }
 </script>

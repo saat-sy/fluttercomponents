@@ -5,25 +5,36 @@ import type TextField from "../shared/custom_properties/TextField.svelte";
 
 export interface Prop {
     title: string,
+    required: boolean
 }
 
 export interface ColorPickerProperties extends Prop {
     component: typeof ColorPicker,
-    color: string
+    value: string,
+    default: string,
 }
 
 export interface CheckBoxProperties extends Prop {
     component: typeof CheckBox,
-    checked: boolean
+    value: boolean,
+    default: boolean,
 }
 
 export interface DropDownProperties extends Prop {
     component: typeof Dropdown,
     values: Array<string>,
-    active: number
+    active: number,
+    default: number
 }
 
 export interface TextFieldProperties extends Prop {
     component: typeof TextField,
-    value: string
+    value: string,
+    default: string
 }
+
+export type CustomFieldsProperties = 
+    ColorPickerProperties |
+    CheckBoxProperties |
+    DropDownProperties |
+    TextFieldProperties;

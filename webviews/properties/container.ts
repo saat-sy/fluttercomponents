@@ -10,27 +10,37 @@ const customProperties: CustomContainerProperties = {
     color: {
         title: "Background Color",
         component: ColorPicker,
-        color: ""
+        value: "",
+        default: "",
+        required: false
     },
     borderWidth: {
         component: TextField,
         value: "",
-        title: "Border Width"
+        title: "Border Width",
+        default: "",
+        required: false
     },
     borderColor: {
         component: ColorPicker,
-        color: "",
-        title: "Border Color"
+        value: "",
+        title: "Border Color",
+        default: "",
+        required: false
     },
     borderRadius: {
         component: TextField,
         value: "",
-        title: "Border Radius"
+        title: "Border Radius",
+        default: "",
+        required: false
     },
     elevation: {
         component: TextField,
         value: "",
-        title: "Elevation"
+        title: "Elevation",
+        default: "",
+        required: false
     }
 };
 
@@ -40,7 +50,7 @@ export const containerProperties: PropertiesModel = {
     alignment: Alignment.ANY,
     position: {
         component: PositionDesign,
-        centerAlign: true
+        align: 0
     },
     padding: {
         component: Padding

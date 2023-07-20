@@ -1,6 +1,7 @@
 import type { CustomPropertiesType } from "../properties/properties";
 import type { Alignment } from "./alignment_model";
 import type { DefaultPaddingProperties, DefaultPositionProperties } from "./default_properties";
+import type { CodeTextProperties } from "../../components/model/text_properties";
 
 export interface PropertiesModel {
     component?: any,
@@ -9,5 +10,5 @@ export interface PropertiesModel {
     alignment: Alignment,
     position: DefaultPositionProperties,
     padding: DefaultPaddingProperties,
-    customProperties: CustomPropertiesType
+    customProperties: CustomPropertiesType,
 }

@@ -1,78 +1,78 @@
 import TextComponent from "../components/TextComponent.svelte";
 import { Alignment } from "../model/alignment_model";
-import type { CheckBoxProperties, ColorPickerProperties, DropDownProperties, TextFieldProperties } from "../model/custom_properties";
+import type { ColorPickerProperties, DropDownProperties, TextFieldProperties } from "../model/custom_properties";
 import type { PropertiesModel } from "../model/properties_model";
-import CheckBox from "../shared/custom_properties/CheckBox.svelte";
 import ColorPicker from "../shared/custom_properties/ColorPicker.svelte";
 import Dropdown from "../shared/custom_properties/Dropdown.svelte";
 import TextField from "../shared/custom_properties/TextField.svelte";
 import Padding from "../shared/properties/Padding.svelte";
 import PositionDesign from "../shared/properties/Position.svelte";
+import {
+    text,
+    fontSize,
+    color,
+    fontWeight,
+    activeFontWeight,
+    textAlign,
+    activeTextAlign,
+    styling,
+    activeStyling,
+    maxLines
+} from "../../common/default/defaulTextProps";
 
 const customProperties: CustomTextProperties = {
     text: {
         component: TextField,
-        value: "Text",
-        title: "Text"
+        value: text,
+        title: "Text",
+        default: text,
+        required: true
     },
     fontSize: {
         component: TextField,
-        value: "14",
-        title: "Font Size"
+        value: fontSize,
+        title: "Font Size",
+        default: fontSize,
+        required: false
     },
     color: {
         component: ColorPicker,
-        color: "#000000",
-        title: "Text Color"
+        value: color,
+        title: "Text Color",
+        default: color,
+        required: false
     },
     fontWeight: {
         component: Dropdown,
-        values: [
-            "100 - Thin",
-            "200 - Extra-light",
-            "300 - Light",
-            "400 - Normal",
-            "500 - Medium",
-            "600 - Semi-bold",
-            "700 - Bold",
-            "800 - Extra-bold",
-            "900 - Black",
-        ],
-        active: 3,
-        title: "Font Weight"
+        values: fontWeight,
+        active: activeFontWeight,
+        title: "Font Weight",
+        default: activeFontWeight,
+        required: false
     },
     textAlign: {
         component: Dropdown,
-        values: [
-            "Left",
-            "Center",
-            "Right",
-            "Justify"
-        ],
-        active: 0,
-        title: "Text Align"
+        values: textAlign,
+        active: activeTextAlign,
+        title: "Text Align",
+        default: activeTextAlign,
+        required: false
     },
     styling: {
         component: Dropdown,
-        values: [
-            "Normal",
-            "Italic",
-            "Underline",
-            "Line-through"
-        ],
-        active: 0,
-        title: "Styling"
+        values: styling,
+        active: activeStyling,
+        title: "Styling",
+        default: activeStyling,
+        required: false
     },
     maxLines: {
         component: TextField,
-        value: "",
-        title: "Max Lines"
+        value: maxLines,
+        title: "Max Lines",
+        default: maxLines,
+        required: false
     },
-    selectable: {
-        component: CheckBox,
-        checked: false,
-        title: "Selectable"
-    }
 };
 
 export const textProperties: PropertiesModel = {
@@ -98,5 +98,4 @@ export interface CustomTextProperties {
     textAlign: DropDownProperties,
     styling: DropDownProperties,
     maxLines: TextFieldProperties,
-    selectable: CheckBoxProperties
 }

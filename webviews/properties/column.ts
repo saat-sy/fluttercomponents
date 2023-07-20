@@ -10,7 +10,9 @@ const customProperties: CustomColumnProperties = {
         title: "Main Axis Size",
         component: Dropdown,
         values: ["Max", "Min"],
-        active: 0
+        active: 0,
+        default: 0,
+        required: false
     },
     crossAxisAlignment: {
         title: "Cross Axis Alignment",
@@ -21,7 +23,9 @@ const customProperties: CustomColumnProperties = {
             "End",
             "Stretch"
         ],
-        active: 0
+        active: 0,
+        default: 0,
+        required: false
     },
     mainAxisAlignment: {
         title: "Main Axis Alignment",
@@ -34,7 +38,9 @@ const customProperties: CustomColumnProperties = {
             "Space Between",
             "Space Around"
         ],
-        active: 0
+        active: 0,
+        default: 0,
+        required: false
     }
 };
 
@@ -44,7 +50,7 @@ export const columnProperties: PropertiesModel = {
     alignment: Alignment.VERTICAL,
     position: {
         component: PositionDesign,
-        centerAlign: true
+        align: 0
     },
     padding: {
         component: Padding
