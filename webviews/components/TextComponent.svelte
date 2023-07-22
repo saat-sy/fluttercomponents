@@ -23,21 +23,12 @@
                     fontSize: `${textProperties.fontSize.value}px`,
                     color: textProperties.color.value,
                     fontWeight: textProperties.fontWeight.values
-                        [textProperties.fontWeight.active]
-                        .split("-")[0]
-                        .trim(),
+                        [textProperties.fontWeight.active],
                     textAlign: textProperties.textAlign.values
                         [textProperties.textAlign.active]
                         .toLowerCase(),
                     fontStyle: textProperties.styling.values
-                        [textProperties.styling.active] == "Italic" ?
-                        "italic" : "normal",
-                    textDecoration: textProperties.styling.values
-                        [textProperties.styling.active] != "Normal" ||
-                        textProperties.styling.values
-                        [textProperties.styling.active] != "Italic" ?
-                        textProperties.styling.values
-                        [textProperties.styling.active].toLowerCase() : "none",
+                        [textProperties.styling.active].toLowerCase(),
                 }
             }>
             {textProperties.text.value}

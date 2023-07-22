@@ -2,30 +2,29 @@ const text = "Text";
 const fontSize = "14";
 const color = "#000000";
 const fontWeight = [
-    "100 - Thin",
-    "200 - Extra-light",
-    "300 - Light",
-    "400 - Normal",
-    "500 - Medium",
-    "600 - Semi-bold",
-    "700 - Bold",
-    "800 - Extra-bold",
-    "900 - Black",
+    "100",
+    "200",
+    "300",
+    "400",
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
 ];
 const activeFontWeight = 3; // INDEX
 const textAlign = [
-    "Left",
-    "Center",
-    "Right",
-    "Justify"
+    "left",
+    "center",
+    "right",
+    "justify"
 ];
 const activeTextAlign = 0; // INDEX
 const styling = [
-    "Normal",
-    "Italic",
-    "Underline",
-    "Line-through"
+    "normal",
+    "italic",
 ];
+
 const activeStyling = 0; // INDEX
 const maxLines = "";
 

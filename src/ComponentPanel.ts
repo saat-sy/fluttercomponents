@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { getNonce } from "../common/nonce";
-import { generateCode } from "./generateCode";
+import { addPaddingToLines, generateCode } from "./generateCode";
 import { CodeTemplate } from "../common/code";
 
 export class ComponentPanel {
@@ -16,6 +16,9 @@ export class ComponentPanel {
   private _disposables: vscode.Disposable[] = [];
 
   private static activeTextEditor?: vscode.TextEditor;
+
+  private static previousCode: string = "";
+  private static padding: string;
 
   public static createOrShow(extensionUri: vscode.Uri) {
     this.activeTextEditor = vscode.window.activeTextEditor;
@@ -110,12 +113,19 @@ export class ComponentPanel {
             return;
           }
           let code = generateCode(data.value as CodeTemplate);
+          if (ComponentPanel.padding === undefined) {
+            ComponentPanel.padding = ComponentPanel.activeTextEditor!.document.lineAt(
+              ComponentPanel.activeTextEditor!.selection.active.line
+            ).text;
+          }
+          code = this.addPadding(code);
           console.log(code);
           if (!ComponentPanel.activeTextEditor) {
             vscode.window.showErrorMessage("No active window");
           } else {
             console.log(ComponentPanel.activeTextEditor.document.fileName);
-            // await this.editCode(data.value);
+            await this.editCode(code);
+            ComponentPanel.previousCode = code;
           }
 
           break;
@@ -150,16 +160,38 @@ export class ComponentPanel {
         ComponentPanel.activeTextEditor!.selection.active.line,
         ComponentPanel.activeTextEditor!.selection.active.character
       ), 
-      new vscode.Position(
-        ComponentPanel.activeTextEditor!.selection.active.line,
-        ComponentPanel.activeTextEditor!.selection.active.character + 1
-      )
+      this.getEndRange(
+        ComponentPanel.previousCode, 
+        ComponentPanel.activeTextEditor!.selection.active.line
+      ),
       ), 
-      "This is shit"
+      code
     );
     
     await vscode.workspace.applyEdit(edit);
     await document.save();
+  }
+
+  private getEndRange(code: string, line: number): vscode.Position {
+    let range;
+    if (code === '') {
+      range = new vscode.Position(
+        ComponentPanel.activeTextEditor!.selection.active.line,
+        ComponentPanel.activeTextEditor!.selection.active.character
+      );
+    } else {
+      range =  new vscode.Position(
+        line + code.split('\n').length - 1,
+        code.substring(code.lastIndexOf('\n')).length + 1,
+      );
+    }
+    return range;
+  }
+
+  private addPadding(code: string): string {
+    code = addPaddingToLines(code, ComponentPanel.padding, false);
+    code = code.trim();
+    return code;
   }
 
   private _getHtmlForWebview(webview: vscode.Webview) {
