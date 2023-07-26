@@ -20,6 +20,7 @@ import { codeRow } from "../components/row";
 import { cloneDeep } from 'lodash';
 
 export function generateCode(object: CodeTemplate) {
+    console.log(object);
     let finalObject: CodeProperties = parseObjectWithProps(object); 
     return convertObjectToCode(finalObject, 0, true);
 }
@@ -41,12 +42,13 @@ function updateProps(props: CodeProperties, object: CodeTemplate) {
         if (key === CHILD_ID) {
             let child: CodeTemplate = object[key]!;
             if (child) {
+                props[key].value = "";
                 props[key].value += generateCode(child) + '\n';
             }
         } else if (key === CHILDREN_ID) {
             let children: Array<CodeTemplate> = object[key]!;
-            props[key].value = "";
             if (children) {
+                props[key].value = "";
                 children.forEach((child: CodeTemplate) => {
                     props[key].value += generateCode(child) + 
                         '\n';

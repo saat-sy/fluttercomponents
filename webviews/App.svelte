@@ -39,6 +39,34 @@
     let firstItemHover = false;
     let previousBuilderTreeCode: CodeTemplate = {};
 
+    // let builderTree: TreeComponent = {
+    //     component1: {
+    //         component: components[1],
+    //         id: 'component1',
+    //         active: {
+    //             status: false
+    //         },
+    //         children: [
+    //             {
+    //                 component: components[1],
+    //                 id: 'component2',
+    //                 active: {
+    //                     status: false
+    //                 },
+    //                 children: []
+    //             },
+    //         ]
+    //     }, 
+    //     component2: {
+    //         component: components[1],
+    //         id: 'component2',
+    //         active: {
+    //             status: false
+    //         },
+    //         children: []
+    //     }, 
+    // }
+
     // let builderTree = {
     //     component1: {
     //         component: components[1],
@@ -117,17 +145,15 @@
     
     $: if (builderTree) {
         if (!builderTreeContainsShadowItem(builderTree)) {
-            let newCode = convertBuilderTreeToCode(builderTree);
+            let newCode = convertBuilderTreeToCode(builderTree, builderTree[Object.keys(builderTree)[0]]);
             if (JSON.stringify(newCode) !== JSON.stringify(previousBuilderTreeCode)) {
                 webVscode.postMessage({
                     type: "onInfo",
-                    value: convertBuilderTreeToCode(builderTree)
+                    value: newCode
                 });
                 previousBuilderTreeCode = newCode;
             }
         }
-        
-        // console.log("YESSSSSSSSSs");
     }
 </script>
 

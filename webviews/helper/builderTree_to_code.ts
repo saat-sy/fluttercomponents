@@ -3,18 +3,18 @@ import type { CustomPropertiesType } from "../properties/properties";
 import type { CodeTemplate } from "../../common/code";
 import { CHILDREN_ID, CHILD_ID, COMPONENT_ID } from "../../common/constants";
 
-export function convertBuilderTreeToCode(builderTree: TreeComponent): CodeTemplate {
+export function convertBuilderTreeToCode(builderTree: TreeComponent, parent: TreeModel): CodeTemplate {
     if (Object.keys(builderTree).length > 0) {
-        let parent = builderTree[Object.keys(builderTree)[0]];
         let code: CodeTemplate = {
             [COMPONENT_ID]: parent.component.id
         };
-        if (parent.children) {
+        if (parent.children.length > 0) {
             if (parent.component.property.children > 1) {
                 code[CHILDREN_ID] = [];
                 parent.children.forEach( (child) => {
                     code[CHILDREN_ID].push(
-                        convertComponentToCodeTemplate(
+                        convertBuilderTreeToCode(
+                            builderTree,
                             builderTree[child.id]
                         )
                     );
@@ -24,20 +24,22 @@ export function convertBuilderTreeToCode(builderTree: TreeComponent): CodeTempla
                     builderTree[parent.children[0].id]
                 );
             }
-        }
-        console.log(code);
+        } 
+        code = convertComponentToCodeTemplate(parent, code);
         return code;
     }
 }
 
-function convertComponentToCodeTemplate(treeModel: TreeModel): CodeTemplate {
+function convertComponentToCodeTemplate(treeModel: TreeModel, codeTemplate?: CodeTemplate): CodeTemplate {
     let componentId = treeModel.component.id;
     let customProps: CustomPropertiesType = 
         treeModel.component.property.customProperties;
 
-    let code: CodeTemplate = {
-        [COMPONENT_ID]: componentId
-    };
+
+    let code: CodeTemplate = codeTemplate !== undefined ? 
+        codeTemplate : {
+            [COMPONENT_ID]: componentId
+        };
 
     for (var propKey in customProps) {
         let prop: CustomPropertiesType = customProps[propKey];
