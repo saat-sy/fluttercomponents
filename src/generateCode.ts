@@ -15,6 +15,7 @@ import { codeText } from "../components/text";
 import { codeContainer } from "../components/container";
 import { codeColumn } from "../components/column";
 import { codeRow } from "../components/row";
+import { cloneDeep } from 'lodash';
 
 export function generateCode(object: CodeTemplate) {
     let finalObject: CodeProperties = parseObjectWithProps(object);
@@ -118,13 +119,13 @@ function typeOfCode(object: any): boolean {
 function getAllProps(id: number): CodeProperties {
     switch(id) {
         case TEXT_ID: 
-            return codeText;
+            return cloneDeep(codeText);
         case CONTAINER_ID:
-            return codeContainer;
+            return cloneDeep(codeContainer);
         case COLUMN_ID:
-            return codeColumn;
+            return cloneDeep(codeColumn);
         case ROW_ID:
-            return codeRow;
+            return cloneDeep(codeRow);
         default:
             return undefined;
     }
