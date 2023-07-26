@@ -4,7 +4,7 @@ import { CodeColumnProperties } from "./model/column_properties";
 export const codeColumn: CodeColumnProperties = {
     [componentTitle]: "Column",
     children: {
-        beginning: "children: [",
+        beginning: "children: [\n",
         end: "],"
     },
     mainAxisSize: {

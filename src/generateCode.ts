@@ -43,15 +43,14 @@ function updateProps(props: CodeProperties, object: CodeTemplate) {
             let child: CodeTemplate = object[key]!;
             if (child) {
                 props[key].value = "";
-                props[key].value += generateCode(child) + '\n';
+                props[key].value += generateCode(child);
             }
         } else if (key === CHILDREN_ID) {
             let children: Array<CodeTemplate> = object[key]!;
             if (children) {
                 props[key].value = "";
                 children.forEach((child: CodeTemplate) => {
-                    props[key].value += generateCode(child) + 
-                        '\n';
+                    props[key].value += generateCode(child);
                 });
             }
         } else if (typeOfCode(props[key])) {
@@ -80,8 +79,10 @@ function convertObjectToCode(object, padding: number, main: boolean): string {
                 code += '\t' +
                     object[key][codeBeginning] +
                     object[key][codeValue] +
-                    object[key][codeEnd] +
-                    '\n';
+                    object[key][codeEnd];
+                if (!(object[key][codeValue].endsWith("\n") || object[key][codeEnd].endsWith("\n"))) {
+                    code += "\n";
+                }
                 active = true;
             }
         } else {
@@ -103,7 +104,8 @@ function convertObjectToCode(object, padding: number, main: boolean): string {
             tabs += '\t';
             padding--;
         }
-        code.replace('\n', `\n${tabs}`);
+        code = code.replace('\n', `\n${tabs}`);
+        // code = code.trim();
         return code;
     } 
     return '';
