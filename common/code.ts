@@ -1,3 +1,3 @@
 export interface CodeTemplate {
-    [key: string]: string
+    [key: string]: any
 }

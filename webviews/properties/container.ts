@@ -5,43 +5,42 @@ import ColorPicker from "../shared/custom_properties/ColorPicker.svelte";
 import TextField from "../shared/custom_properties/TextField.svelte";
 import Padding from "../shared/properties/Padding.svelte";
 import PositionDesign from "../shared/properties/Position.svelte";
+import {
+    backgroundColor,
+    borderColor,
+    borderRadius,
+    borderWidth
+} from "../../common/default/defaultContainerProps";
 
 const customProperties: CustomContainerProperties = {
     color: {
         title: "Background Color",
         component: ColorPicker,
-        value: "",
-        default: "",
+        value: backgroundColor,
+        default: backgroundColor,
         required: false
     },
     borderWidth: {
         component: TextField,
-        value: "",
+        value: borderWidth,
         title: "Border Width",
-        default: "",
+        default: borderWidth,
         required: false
     },
     borderColor: {
         component: ColorPicker,
-        value: "",
+        value: borderColor,
         title: "Border Color",
-        default: "",
+        default: borderColor,
         required: false
     },
     borderRadius: {
         component: TextField,
-        value: "",
+        value: borderRadius,
         title: "Border Radius",
-        default: "",
+        default: borderRadius,
         required: false
     },
-    elevation: {
-        component: TextField,
-        value: "",
-        title: "Elevation",
-        default: "",
-        required: false
-    }
 };
 
 export const containerProperties: PropertiesModel = {
@@ -63,5 +62,4 @@ export interface CustomContainerProperties {
     borderWidth: TextFieldProperties,
     borderColor: ColorPickerProperties,
     borderRadius: TextFieldProperties,
-    elevation: TextFieldProperties,
 }

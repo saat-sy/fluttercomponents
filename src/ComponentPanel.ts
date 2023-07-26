@@ -119,11 +119,9 @@ export class ComponentPanel {
             ).text;
           }
           code = this.addPadding(code);
-          console.log(code);
           if (!ComponentPanel.activeTextEditor) {
             vscode.window.showErrorMessage("No active window");
           } else {
-            console.log(ComponentPanel.activeTextEditor.document.fileName);
             await this.editCode(code);
             ComponentPanel.previousCode = code;
           }
@@ -180,9 +178,14 @@ export class ComponentPanel {
         ComponentPanel.activeTextEditor!.selection.active.character
       );
     } else {
+      let numOfChars = code.split('\n').at(-1)?.length! + 1; 
+      if (code.split('\n').length <= 1) {
+        // If it's the first line, add padding manually
+        numOfChars += ComponentPanel.padding.length;
+      }
       range =  new vscode.Position(
         line + code.split('\n').length - 1,
-        code.substring(code.lastIndexOf('\n')).length + 1,
+        numOfChars,
       );
     }
     return range;

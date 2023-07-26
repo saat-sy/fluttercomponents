@@ -1,20 +1,36 @@
 import type { CodeTemplate } from "../common/code";
-import { codeBeginning, codeEnd, codeValue, componentTitle, replacableCharacter } from "../common/constants";
-import { CodeTextProperties } from "../components/model/text_properties";
+import { 
+    COLUMN_ID, 
+    COMPONENT_ID, 
+    CONTAINER_ID, 
+    ROW_ID, 
+    TEXT_ID, 
+    codeBeginning, 
+    codeEnd, 
+    codeValue, 
+    componentTitle
+} from "../common/constants";
+import { CodeProperties } from "../components/model/properties";
 import { codeText } from "../components/text";
+import { codeContainer } from "../components/container";
+import { codeColumn } from "../components/column";
+import { codeRow } from "../components/row";
 
 export function generateCode(object: CodeTemplate) {
-    let finalObject: CodeTextProperties = parseObjectWithProps(object);
-    return convertObjectToCode(finalObject, 0);
+    let finalObject: CodeProperties = parseObjectWithProps(object);
+    return convertObjectToCode(finalObject, 0, true);
 }
 
-function parseObjectWithProps(object: CodeTemplate): CodeTextProperties {
-    let allProps = codeText;
+function parseObjectWithProps(object: CodeTemplate): CodeProperties {
+    let allProps: CodeProperties = getAllProps(object[COMPONENT_ID]);
+    if (allProps === undefined) {
+        return;
+    }
     allProps = updateProps(allProps, object);
     return allProps;
 }
 
-function updateProps(props: CodeTextProperties, object) {
+function updateProps(props: CodeProperties, object) {
     for (var key in props) {
         if (key === componentTitle) {
             continue;
@@ -30,7 +46,7 @@ function updateProps(props: CodeTextProperties, object) {
     return props;
 }
 
-function convertObjectToCode(object, padding: number): string {
+function convertObjectToCode(object, padding: number, main: boolean): string {
     let code = `${object[componentTitle]}(\n`;
     let active = false;
     for (var key in object) {
@@ -50,11 +66,18 @@ function convertObjectToCode(object, padding: number): string {
                 active = true;
             }
         } else {
-            code += convertObjectToCode(object[key], 1);
-            active = true;
+            let innerCode = convertObjectToCode(object[key], padding + 1, false);
+            if (innerCode !== "") {
+                code += innerCode;
+                active = true;
+            }
         }
     }
-    if (active) {
+    if (main && !active) {
+        code = `${object[componentTitle]}(),\n`;
+        return code;
+    }
+    else if (active) {
         code += `),\n`;
         let tabs = '';
         while (padding > 0) {
@@ -90,4 +113,19 @@ function typeOfCode(object: any): boolean {
         return true;
     } 
     return false;
+}
+
+function getAllProps(id: number): CodeProperties {
+    switch(id) {
+        case TEXT_ID: 
+            return codeText;
+        case CONTAINER_ID:
+            return codeContainer;
+        case COLUMN_ID:
+            return codeColumn;
+        case ROW_ID:
+            return codeRow;
+        default:
+            return undefined;
+    }
 }

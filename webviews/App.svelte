@@ -8,25 +8,27 @@
     import UiBorder from "./shared/properties/UiBorder.svelte";
     import type { TreeComponent } from "./model/tree";
 	import { convertBuilderTreeToCode } from "./helper/builderTree_to_code";
+	import { COLUMN_ID, CONTAINER_ID, ROW_ID, TEXT_ID } from "../common/constants";
+	import type { CodeTemplate } from "../common/code";
 
     let components: ComponentModel[] = [
         {
-            id: 1000,
+            id: ROW_ID,
             name: "Row",
             property: properties.rowProperties
         },
         {
-            id: 1001,
+            id: COLUMN_ID,
             name: "Column",
             property: properties.columnProperties
         },
         {
-            id: 1002,
+            id: CONTAINER_ID,
             name: "Container",
             property: properties.containerProperties
         },
         {
-            id: 1003,
+            id: TEXT_ID,
             name: "Text",
             property: properties.textProperties
         },
@@ -34,6 +36,7 @@
 
     let firstItem = [];
     let firstItemHover = false;
+    let previousBuilderTreeCode: CodeTemplate = {};
 
     // let builderTree = {
     //     component1: {
@@ -99,10 +102,14 @@
     }
     
     $: if (builderTree) {
-        webVscode.postMessage({
-            type: "onInfo",
-            value: convertBuilderTreeToCode(builderTree)
-        });
+        let newCode = convertBuilderTreeToCode(builderTree);
+        if (JSON.stringify(newCode) !== JSON.stringify(previousBuilderTreeCode)) {
+            webVscode.postMessage({
+                type: "onInfo",
+                value: convertBuilderTreeToCode(builderTree)
+            });
+            previousBuilderTreeCode = newCode;
+        }
         // console.log("YESSSSSSSSSs");
     }
 </script>

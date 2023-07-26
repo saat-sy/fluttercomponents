@@ -4,42 +4,38 @@ import type { PropertiesModel } from "../model/properties_model";
 import Dropdown from "../shared/custom_properties/Dropdown.svelte";
 import Padding from "../shared/properties/Padding.svelte";
 import PositionDesign from "../shared/properties/Position.svelte";
+import {
+    mainAxisSize,
+    crossAxisAlignment,
+    mainAxisAlignment,
+    activeCrossAxisAlignment,
+    activeMainAxisAlignment,
+    activeMainAxisSize
+} from "../../common/default/defaultColumnProps";
 
 const customProperties: CustomColumnProperties = {
     mainAxisSize: {
         title: "Main Axis Size",
         component: Dropdown,
-        values: ["Max", "Min"],
-        active: 0,
-        default: 0,
+        values: mainAxisSize,
+        active: activeMainAxisSize,
+        default: activeMainAxisSize,
         required: false
     },
     crossAxisAlignment: {
         title: "Cross Axis Alignment",
         component: Dropdown,
-        values: [
-            "Start",
-            "Center",
-            "End",
-            "Stretch"
-        ],
-        active: 0,
-        default: 0,
+        values: crossAxisAlignment,
+        active: activeCrossAxisAlignment,
+        default: activeCrossAxisAlignment,
         required: false
     },
     mainAxisAlignment: {
         title: "Main Axis Alignment",
         component: Dropdown,
-        values: [
-            "Start",
-            "Center",
-            "End",
-            "Space Evenly",
-            "Space Between",
-            "Space Around"
-        ],
-        active: 0,
-        default: 0,
+        values: mainAxisAlignment,
+        active: activeMainAxisAlignment,
+        default: activeMainAxisAlignment,
         required: false
     }
 };
