@@ -2,6 +2,10 @@ import { componentTitle } from "../common/constants";
 import { CodeContainerProperties } from "./model/container_properties";
 
 export const codeContainer: CodeContainerProperties = {
+    child: {
+        beginning: "child: ",
+        end: ""
+    },
     decoration: {
         color: {
             beginning: "color: Color(0xFF",

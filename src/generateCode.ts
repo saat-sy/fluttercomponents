@@ -1,5 +1,7 @@
 import type { CodeTemplate } from "../common/code";
 import { 
+    CHILDREN_ID,
+    CHILD_ID,
     COLUMN_ID, 
     COMPONENT_ID, 
     CONTAINER_ID, 
@@ -18,12 +20,12 @@ import { codeRow } from "../components/row";
 import { cloneDeep } from 'lodash';
 
 export function generateCode(object: CodeTemplate) {
-    let finalObject: CodeProperties = parseObjectWithProps(object);
+    let finalObject: CodeProperties = parseObjectWithProps(object); 
     return convertObjectToCode(finalObject, 0, true);
 }
 
 function parseObjectWithProps(object: CodeTemplate): CodeProperties {
-    let allProps: CodeProperties = getAllProps(object[COMPONENT_ID]);
+    let allProps: CodeProperties = getAllProps(object[COMPONENT_ID].toString());
     if (allProps === undefined) {
         return;
     }
@@ -31,12 +33,26 @@ function parseObjectWithProps(object: CodeTemplate): CodeProperties {
     return allProps;
 }
 
-function updateProps(props: CodeProperties, object) {
+function updateProps(props: CodeProperties, object: CodeTemplate) {
     for (var key in props) {
         if (key === componentTitle) {
             continue;
         }
-        if (typeOfCode(props[key])) {
+        if (key === CHILD_ID) {
+            let child: CodeTemplate = object[key]!;
+            if (child) {
+                props[key].value += generateCode(child) + '\n';
+            }
+        } else if (key === CHILDREN_ID) {
+            let children: Array<CodeTemplate> = object[key]!;
+            props[key].value = "";
+            if (children) {
+                children.forEach((child: CodeTemplate) => {
+                    props[key].value += generateCode(child) + 
+                        '\n';
+                });
+            }
+        } else if (typeOfCode(props[key])) {
             if (object.hasOwnProperty(key)) {
                 props[key].value = object[key];
             }
@@ -116,17 +132,16 @@ function typeOfCode(object: any): boolean {
     return false;
 }
 
-function getAllProps(id: number): CodeProperties {
-    switch(id) {
-        case TEXT_ID: 
+function getAllProps(id: string): CodeProperties {
+    if (id.startsWith(TEXT_ID.toString())) {
             return cloneDeep(codeText);
-        case CONTAINER_ID:
-            return cloneDeep(codeContainer);
-        case COLUMN_ID:
-            return cloneDeep(codeColumn);
-        case ROW_ID:
-            return cloneDeep(codeRow);
-        default:
-            return undefined;
+    } else if (id.startsWith(COLUMN_ID.toString())) {
+        return cloneDeep(codeColumn);
+    } else if (id.startsWith(CONTAINER_ID.toString())) {
+        return cloneDeep(codeContainer);
+    } else if (id.startsWith(ROW_ID.toString())) {
+        return cloneDeep(codeRow);
+    } else {
+        return undefined;
     }
 }

@@ -3,6 +3,10 @@ import { CodeColumnProperties } from "./model/column_properties";
 
 export const codeColumn: CodeColumnProperties = {
     [componentTitle]: "Column",
+    children: {
+        beginning: "children: [",
+        end: "],"
+    },
     mainAxisSize: {
         beginning: "mainAxisSize: MainAxisSize.",
         end: ","

@@ -5,6 +5,8 @@ export const codeValue = "value";
 export const codeEnd = "end";
 export const replacableCharacter = "\\";
 export const replacableCharacterRegex = "/\\./g";
+export const CHILD_ID = "child";
+export const CHILDREN_ID = "children";
 
 // All Component IDS
 export const TEXT_ID = 1000;

@@ -10,6 +10,7 @@
 	import { convertBuilderTreeToCode } from "./helper/builderTree_to_code";
 	import { COLUMN_ID, CONTAINER_ID, ROW_ID, TEXT_ID } from "../common/constants";
 	import type { CodeTemplate } from "../common/code";
+	// import { builderTreeContainsShadowItem } from "./helper/helper";
 
     let components: ComponentModel[] = [
         {
@@ -100,16 +101,32 @@
             }
         }
     }
+
+    function builderTreeContainsShadowItem(builderTree: TreeComponent): boolean {
+        if (Object.keys(builderTree).length > 0) {
+            let shadowItem = false;
+            for (var key in builderTree) {
+                if (Object.keys(builderTree[key]).includes("isDndShadowItem")) {
+                    shadowItem = true;
+                    break;
+                }
+            }
+            return shadowItem;
+        }
+    }
     
     $: if (builderTree) {
-        let newCode = convertBuilderTreeToCode(builderTree);
-        if (JSON.stringify(newCode) !== JSON.stringify(previousBuilderTreeCode)) {
-            webVscode.postMessage({
-                type: "onInfo",
-                value: convertBuilderTreeToCode(builderTree)
-            });
-            previousBuilderTreeCode = newCode;
+        if (!builderTreeContainsShadowItem(builderTree)) {
+            let newCode = convertBuilderTreeToCode(builderTree);
+            if (JSON.stringify(newCode) !== JSON.stringify(previousBuilderTreeCode)) {
+                webVscode.postMessage({
+                    type: "onInfo",
+                    value: convertBuilderTreeToCode(builderTree)
+                });
+                previousBuilderTreeCode = newCode;
+            }
         }
+        
         // console.log("YESSSSSSSSSs");
     }
 </script>

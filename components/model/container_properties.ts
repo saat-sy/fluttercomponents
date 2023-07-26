@@ -1,6 +1,7 @@
 import type { Base, Code } from "./base";
 
 export interface CodeContainerProperties extends Base {
+    child?: Code,
     decoration?: Decoration
 }
 
