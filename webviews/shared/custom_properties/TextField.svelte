@@ -4,9 +4,11 @@
 
     export let properties: TextFieldProperties;
     export let tree: TreeComponent;
+    export let onFinalize: Function;
 
     $: if (properties.value || properties.value == "") {
         tree = {...tree};
+        onFinalize();
     }
 </script>
 

@@ -4,10 +4,12 @@
 
     export let properties: ColorPickerProperties;
     export let tree: TreeComponent;
+    export let onFinalize: Function;
 
     function handleColorChange(event) {
         properties.value = event.target.value;
         tree = {...tree};
+        onFinalize();
     }
 </script>
 

@@ -4,15 +4,17 @@
 
     export let properties: CheckBoxProperties;
     export let tree: TreeComponent;
+    export let onFinalize: Function;
 
-    $: if (properties.checked) {
+    $: if (properties.value) {
         tree = {...tree};
+        onFinalize();
     }
 </script>
 
 <div class="container">
     <label for="{properties.title}">{properties.title}</label>
-    <input type="checkbox" id={properties.title} bind:checked={properties.checked}>
+    <input type="checkbox" id={properties.title} bind:checked={properties.value}>
 </div>
 
 <style lang="scss">

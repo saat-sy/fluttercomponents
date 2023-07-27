@@ -5,6 +5,7 @@
 
     export let properties: DefaultPaddingProperties;
     export let tree: TreeComponent;
+    export let onFinalize: Function;
 
     let expanded = false;
     const expand = () => expanded = true;
@@ -37,6 +38,7 @@
 
     function updateTree() {
         tree = {...tree};
+        onFinalize();
     }
 </script>
 

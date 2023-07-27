@@ -6,17 +6,20 @@
 
     export let properties: DefaultPositionProperties;
     export let tree: TreeComponent;
+    export let onFinalize: Function;
 
     let dropdown: DropDownProperties = {
-        component: Dropdown,
-        values: [
-            "Left",
-            "Center",
-            "Right"
-        ],
-        active: 0,
-        title: ""
-    }
+		component: Dropdown,
+		values: [
+			"Left",
+			"Center",
+			"Right"
+		],
+		active: 0,
+		title: "",
+		default: 0,
+		required: false
+	}
 
     $: if (properties) {
         properties.align = dropdown.active;
@@ -25,7 +28,7 @@
 </script>
 <div class="container">
     <h3>Position</h3>
-    <Dropdown bind:properties={dropdown} />
+    <Dropdown properties={dropdown} tree={undefined} onFinalize={onFinalize} />
 </div>
 
 <style lang="scss">

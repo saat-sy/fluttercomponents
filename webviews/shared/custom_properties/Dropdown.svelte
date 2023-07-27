@@ -4,6 +4,7 @@
     import type { TreeComponent } from "../../model/tree";
     export let properties: DropDownProperties;
     export let tree: TreeComponent;
+    export let onFinalize: Function;
 
     let menuOpen = false;
 
@@ -19,6 +20,7 @@
         properties.active = properties.values.indexOf(value);
         tree = {...tree};
         menuOpen = false;
+        onFinalize();
     }
 </script>
 

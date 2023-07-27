@@ -128,6 +128,7 @@
                 }
             }
         }
+        onFinalize();
     }
 
     function builderTreeContainsShadowItem(builderTree: TreeComponent): boolean {
@@ -143,7 +144,11 @@
         }
     }
     
-    $: if (builderTree) {
+    // $: if (builderTree) {
+        
+    // }
+
+    function onFinalize() {
         if (!builderTreeContainsShadowItem(builderTree)) {
             let newCode = convertBuilderTreeToCode(builderTree, builderTree[Object.keys(builderTree)[0]]);
             if (JSON.stringify(newCode) !== JSON.stringify(previousBuilderTreeCode)) {
@@ -195,7 +200,8 @@
             <Tree 
                 bind:parent={builderTree.component1} 
                 bind:tree={builderTree} 
-                main={true} />
+                main={true}
+                onFinalize={onFinalize} />
         </div>
     {/if}
 
@@ -205,13 +211,13 @@
                 <div class="customProps">
                     <h3>{data.component.name} Properties</h3>
                     {#each Object.entries(data.component.property.customProperties) as [_, property]}
-                        <svelte:component this={property.component} bind:properties={property} bind:tree={builderTree} />
+                        <svelte:component this={property.component} bind:properties={property} bind:tree={builderTree} onFinalize={onFinalize}/>
                     {/each}
                 </div>
                 <UiBorder />
                 {#each Object.entries(data.component.property) as [_, property]} 
                     {#if property.component}
-                        <svelte:component this={property.component} bind:properties={property} bind:tree={builderTree} />
+                        <svelte:component this={property.component} bind:properties={property} bind:tree={builderTree} onFinalize={onFinalize}/>
                         <UiBorder />
                     {/if}
                 {/each}

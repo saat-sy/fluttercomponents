@@ -10,6 +10,7 @@
     export let parent: TreeModel;
     export let tree: TreeComponent;
     export let main: Boolean;
+    export let onFinalize: Function;
 
     let size = Object.keys(tree).length + 1;
 
@@ -55,6 +56,7 @@
         }
 		parent.children = e.detail.items;
 		tree = {...tree};
+        onFinalize();
 	}
 
     function updateNewElement(elements, isDndShadow) {
