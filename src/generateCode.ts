@@ -20,7 +20,6 @@ import { codeRow } from "../components/row";
 import { cloneDeep } from 'lodash';
 
 export function generateCode(object: CodeTemplate) {
-    console.log(object);
     let finalObject: CodeProperties = parseObjectWithProps(object); 
     return convertObjectToCode(finalObject, 0, true);
 }
@@ -80,7 +79,7 @@ function convertObjectToCode(object, padding: number, main: boolean): string {
                     object[key][codeBeginning] +
                     object[key][codeValue] +
                     object[key][codeEnd];
-                if (!(object[key][codeValue].endsWith("\n") || object[key][codeEnd].endsWith("\n"))) {
+                if (!(object[key][codeEnd] === "" && object[key][codeValue].endsWith("\n"))) {
                     code += "\n";
                 }
                 active = true;

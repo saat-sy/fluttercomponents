@@ -142,7 +142,7 @@
 
                 {#each parent.children.filter(item => item.id !== SHADOW_PLACEHOLDER_ITEM_ID) as item(item.id)}
                     <div animate:flip="{{duration: flipDurationMs}}" class="item">
-                        <svelte:self bind:tree={tree} parent={tree[item.id]} main={false} />
+                        <svelte:self bind:tree={tree} parent={tree[item.id]} main={false} onFinalize={onFinalize} />
                     </div>
                 {/each}
 
