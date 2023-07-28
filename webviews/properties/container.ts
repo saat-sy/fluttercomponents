@@ -9,11 +9,29 @@ import {
     backgroundColor,
     borderColor,
     borderRadius,
-    borderWidth
+    borderWidth,
+    defaultHeight,
+    defaultWidth,
+    height,
+    width
 } from "../../common/default/defaultContainerProps";
 import { cloneDeep } from "lodash";
 
 const customProperties: CustomContainerProperties = {
+    width: {
+        component: TextField,
+        value: width,
+        title: "Width",
+        default: defaultWidth,
+        required: false
+    },
+    height: {
+        component: TextField,
+        value: height,
+        title: "Height",
+        default: defaultHeight,
+        required: false
+    },
     color: {
         title: "Background Color",
         component: ColorPicker,
@@ -59,6 +77,8 @@ export const containerProperties: PropertiesModel = {
 };
 
 export interface CustomContainerProperties {
+    width: TextFieldProperties,
+    height: TextFieldProperties,
     color: ColorPickerProperties,
     borderWidth: TextFieldProperties,
     borderColor: ColorPickerProperties,

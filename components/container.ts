@@ -6,6 +6,14 @@ export const codeContainer: CodeContainerProperties = {
         beginning: "child: ",
         end: ""
     },
+    width: {
+        beginning: "width: ",
+        end: ","
+    },
+    height: {
+        beginning: "height: ",
+        end: ","
+    },
     decoration: {
         color: {
             beginning: "color: Color(0xFF",
