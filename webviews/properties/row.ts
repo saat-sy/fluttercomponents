@@ -45,10 +45,6 @@ export const rowProperties: PropertiesModel = {
     title: "Row",
     children: Infinity,
     alignment: Alignment.HORIZONTAL,
-    position: {
-        component: PositionDesign,
-        align: 0
-    },
     padding: {
         component: Padding
     },

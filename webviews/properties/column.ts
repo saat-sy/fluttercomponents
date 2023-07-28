@@ -45,10 +45,6 @@ export const columnProperties: PropertiesModel = {
     title: "Column",
     children: Infinity,
     alignment: Alignment.VERTICAL,
-    position: {
-        component: PositionDesign,
-        align: 0
-    },
     padding: {
         component: Padding
     },

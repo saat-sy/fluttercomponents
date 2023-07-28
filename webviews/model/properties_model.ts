@@ -8,7 +8,7 @@ export interface PropertiesModel {
     title: string,
     children: number,
     alignment: Alignment,
-    position: DefaultPositionProperties,
+    position?: DefaultPositionProperties,
     padding: DefaultPaddingProperties,
     customProperties: CustomPropertiesType,
 }
