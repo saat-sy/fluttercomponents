@@ -11,6 +11,7 @@ import {
     borderRadius,
     borderWidth
 } from "../../common/default/defaultContainerProps";
+import { cloneDeep } from "lodash";
 
 const customProperties: CustomContainerProperties = {
     color: {
@@ -54,7 +55,7 @@ export const containerProperties: PropertiesModel = {
     padding: {
         component: Padding
     },
-    customProperties: customProperties,
+    customProperties: cloneDeep(customProperties),
 };
 
 export interface CustomContainerProperties {

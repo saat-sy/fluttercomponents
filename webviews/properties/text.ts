@@ -19,6 +19,7 @@ import {
     activeStyling,
     maxLines
 } from "../../common/default/defaulTextProps";
+import { cloneDeep } from "lodash";
 
 const customProperties: CustomTextProperties = {
     text: {
@@ -87,7 +88,7 @@ export const textProperties: PropertiesModel = {
     padding: {
         component: Padding
     },
-    customProperties: customProperties,
+    customProperties: cloneDeep(customProperties),
 };
 
 export interface CustomTextProperties {

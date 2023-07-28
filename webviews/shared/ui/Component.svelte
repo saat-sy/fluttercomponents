@@ -40,7 +40,7 @@
             <svelte:component 
                 this="{properties.component}" 
                 bind:properties={properties}
-                bind:active={activeStatus}/>
+                bind:active={activeStatus} />
         {:else}
             <Border title={properties.title}>
                 <slot></slot>

@@ -6,6 +6,7 @@
     import { Alignment } from '../../model/alignment_model';
     import type { ComponentModel } from '../../model/component_model';
     import type { TreeComponent, TreeModel } from '../../model/tree';
+	import { getProperty } from '../../helper/helper';
 
     export let parent: TreeModel;
     export let tree: TreeComponent;
@@ -19,7 +20,7 @@
     let dropTargetStyle = {};
 
     $: dropFromOthersDisabled = (
-        parent.children.length === parent.component.property.children
+        parent.children.length === parent.property.children
     ); 
 
 	function handleDndConsider(e: CustomEvent<DndEvent<any>>) {
@@ -71,7 +72,8 @@
                     active: {
                         status: false,
                     },
-                    children: []
+                    children: [],
+                    property: getProperty(elements[i].id)
                 }
             }
             let updatedComponent = {
@@ -124,12 +126,12 @@
 <Component 
     component={parent.component}
     componentClick={(event, component) => {componentClick(event, component)}}
-    bind:properties={parent.component.property} 
+    bind:properties={parent.property} 
     main={main}
     activeStatus={parent.active} >
     {#if parent.hasOwnProperty("children")}
         <section 
-            class:horizontal={parent.component.property.alignment == Alignment.HORIZONTAL}
+            class:horizontal={parent.property.alignment == Alignment.HORIZONTAL}
             use:dndzone={{
                 items: parent.children, 
                 flipDurationMs, 

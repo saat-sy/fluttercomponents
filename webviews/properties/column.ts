@@ -12,6 +12,7 @@ import {
     activeMainAxisAlignment,
     activeMainAxisSize
 } from "../../common/default/defaultColumnProps";
+import { cloneDeep } from "lodash";
 
 const customProperties: CustomColumnProperties = {
     mainAxisSize: {
@@ -51,7 +52,7 @@ export const columnProperties: PropertiesModel = {
     padding: {
         component: Padding
     },
-    customProperties: customProperties
+    customProperties: cloneDeep(customProperties)
 };
 
 export interface CustomColumnProperties {

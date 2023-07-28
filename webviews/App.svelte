@@ -7,31 +7,27 @@
     import type { ComponentModel } from "./model/component_model";
     import UiBorder from "./shared/properties/UiBorder.svelte";
     import type { TreeComponent } from "./model/tree";
-	import { convertBuilderTreeToCode } from "./helper/builderTree_to_code";
 	import { COLUMN_ID, CONTAINER_ID, ROW_ID, TEXT_ID } from "../common/constants";
 	import type { CodeTemplate } from "../common/code";
+	import { getProperty } from "./helper/helper";
 	// import { builderTreeContainsShadowItem } from "./helper/helper";
 
     let components: ComponentModel[] = [
         {
             id: ROW_ID,
             name: "Row",
-            property: properties.rowProperties
         },
         {
             id: COLUMN_ID,
             name: "Column",
-            property: properties.columnProperties
         },
         {
             id: CONTAINER_ID,
             name: "Container",
-            property: properties.containerProperties
         },
         {
             id: TEXT_ID,
             name: "Text",
-            property: properties.textProperties
         },
     ]
 
@@ -125,7 +121,8 @@
                 children: [],
                 active: {
                     status: false
-                }
+                },
+                property: getProperty(e.detail.items[0].id)
             }
         }
         onFinalize();
@@ -149,16 +146,17 @@
     // }
 
     function onFinalize() {
-        if (!builderTreeContainsShadowItem(builderTree)) {
-            let newCode = convertBuilderTreeToCode(builderTree, builderTree[Object.keys(builderTree)[0]]);
-            if (JSON.stringify(newCode) !== JSON.stringify(previousBuilderTreeCode)) {
-                webVscode.postMessage({
-                    type: "onInfo",
-                    value: newCode
-                });
-                previousBuilderTreeCode = newCode;
-            }
-        }
+        console.log(builderTree);
+        // if (!builderTreeContainsShadowItem(builderTree)) {
+        //     let newCode = convertBuilderTreeToCode(builderTree, builderTree[Object.keys(builderTree)[0]]);
+        //     if (JSON.stringify(newCode) !== JSON.stringify(previousBuilderTreeCode)) {
+        //         webVscode.postMessage({
+        //             type: "onInfo",
+        //             value: newCode
+        //         });
+        //         previousBuilderTreeCode = newCode;
+        //     }
+        // }
     }
 </script>
 
@@ -182,11 +180,12 @@
                 {#if firstItem.length != 0}
                     {#each firstItem as item}
                         <Component 
-                            properties={item.property} 
+                            properties={getProperty(item.id)} 
                             main={true}
                             component={item}
                             componentClick={()=>{}}
                             activeStatus={{status: false}} />
+                        <!-- <p>{item.name}</p> -->
                     {/each}
                 {/if}
                 {#if !firstItemHover}
@@ -210,12 +209,13 @@
             {#if data.active.status}
                 <div class="customProps">
                     <h3>{data.component.name} Properties</h3>
-                    {#each Object.entries(data.component.property.customProperties) as [_, property]}
+                    <p>{data.component.id}</p>
+                    {#each Object.entries(data.property.customProperties) as [_, property]}
                         <svelte:component this={property.component} bind:properties={property} bind:tree={builderTree} onFinalize={onFinalize}/>
                     {/each}
                 </div>
                 <UiBorder />
-                {#each Object.entries(data.component.property) as [_, property]} 
+                {#each Object.entries(data.property) as [_, property]} 
                     {#if property.component}
                         <svelte:component this={property.component} bind:properties={property} bind:tree={builderTree} onFinalize={onFinalize}/>
                         <UiBorder />
