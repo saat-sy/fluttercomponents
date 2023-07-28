@@ -8,6 +8,9 @@
 
     function handleColorChange(event) {
         properties.value = event.target.value;
+    }
+
+    function set() {
         tree = {...tree};
         onFinalize();
     }
@@ -22,6 +25,7 @@
             bind:value="{properties.value}" 
             on:input="{handleColorChange}">
         <span>{properties.value != "" ? properties.value : "Choose a color"}</span>
+        <button class="set" on:click={set}>Set</button>
     </div>
 </div>
 
@@ -58,6 +62,12 @@
                 margin-left: 10px;
                 user-select: none;
                 cursor: pointer;
+            }
+
+            .set {
+                width: fit-content;
+                margin-left: 20px;
+                padding: 5px;
             }
         }
     }
