@@ -10,6 +10,7 @@
 	import { COLUMN_ID, CONTAINER_ID, ROW_ID, TEXT_ID } from "../common/constants";
 	import type { CodeTemplate } from "../common/code";
 	import { getProperty } from "./helper/helper";
+	import { convertBuilderTreeToCode } from "./helper/builderTree_to_code";
 	// import { builderTreeContainsShadowItem } from "./helper/helper";
 
     let components: ComponentModel[] = [
@@ -146,17 +147,16 @@
     // }
 
     function onFinalize() {
-        console.log(builderTree);
-        // if (!builderTreeContainsShadowItem(builderTree)) {
-        //     let newCode = convertBuilderTreeToCode(builderTree, builderTree[Object.keys(builderTree)[0]]);
-        //     if (JSON.stringify(newCode) !== JSON.stringify(previousBuilderTreeCode)) {
-        //         webVscode.postMessage({
-        //             type: "onInfo",
-        //             value: newCode
-        //         });
-        //         previousBuilderTreeCode = newCode;
-        //     }
-        // }
+        if (!builderTreeContainsShadowItem(builderTree)) {
+            let newCode = convertBuilderTreeToCode(builderTree, builderTree[Object.keys(builderTree)[0]]);
+            if (JSON.stringify(newCode) !== JSON.stringify(previousBuilderTreeCode)) {
+                webVscode.postMessage({
+                    type: "onInfo",
+                    value: newCode
+                });
+                previousBuilderTreeCode = newCode;
+            }
+        }
     }
 </script>
 

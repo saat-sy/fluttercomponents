@@ -10,7 +10,7 @@ export function convertBuilderTreeToCode(builderTree: TreeComponent, parent: Tre
             [COMPONENT_ID]: parent.component.id
         };
         if (parent.children.length > 0) {
-            if (parent.component.property.children > 1) {
+            if (parent.property.children > 1) {
                 code[CHILDREN_ID] = [];
                 parent.children.forEach( (child) => {
                     code[CHILDREN_ID].push(
@@ -35,7 +35,7 @@ export function convertBuilderTreeToCode(builderTree: TreeComponent, parent: Tre
 function convertComponentToCodeTemplate(treeModel: TreeModel, codeTemplate?: CodeTemplate): CodeTemplate {
     let componentId = treeModel.component.id;
     let customProps: CustomPropertiesType = 
-        treeModel.component.property.customProperties;
+        treeModel.property.customProperties;
 
 
     let code: CodeTemplate = codeTemplate !== undefined ? 
