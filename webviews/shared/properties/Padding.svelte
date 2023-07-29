@@ -1,5 +1,6 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <script lang="ts">
+	import { DIFFERENT_PADDING } from "../../../common/constants";
     import type { DefaultPaddingProperties } from "../../model/default_properties";
     import type { TreeComponent } from "../../model/tree";
 
@@ -7,10 +8,9 @@
     export let tree: TreeComponent;
     export let onFinalize: Function;
 
-    let expanded = false;
-    const expand = () => expanded = true;
+    const expand = () => properties.active = true;
     const compress = (e) => {
-        expanded = false;
+        properties.active = false;
         properties.paddingBottom = undefined;
         properties.paddingTop = undefined;
         properties.paddingStart = undefined;
@@ -32,7 +32,7 @@
     }
 
     const changePadding = () => {
-        properties.padding = "~";
+        properties.padding = DIFFERENT_PADDING;
         updateTree();
     }
 
@@ -45,13 +45,13 @@
 <div class="container">
     <div class="accordion" on:click={expand}>
         <h3>Padding</h3>
-        {#if !expanded}
+        {#if !properties.active}
             <span>&plus;</span>
         {:else}
             <span on:click={compress}>&minus;</span>
         {/if}
     </div>
-    <div class="content" class:expanded={expanded}>
+    <div class="content" class:expanded={properties.active}>
         <div class="padding-top">
             <input 
                 placeholder="T" 

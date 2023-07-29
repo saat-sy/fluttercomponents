@@ -46,7 +46,8 @@ export const columnProperties: PropertiesModel = {
     children: Infinity,
     alignment: Alignment.VERTICAL,
     padding: {
-        component: Padding
+        component: Padding,
+        active: false
     },
     customProperties: cloneDeep(customProperties)
 };

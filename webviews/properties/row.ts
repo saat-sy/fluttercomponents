@@ -46,7 +46,8 @@ export const rowProperties: PropertiesModel = {
     children: Infinity,
     alignment: Alignment.HORIZONTAL,
     padding: {
-        component: Padding
+        component: Padding,
+        active: false,
     },
     customProperties: cloneDeep(customProperties)
 };

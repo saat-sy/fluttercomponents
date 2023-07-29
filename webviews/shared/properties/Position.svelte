@@ -22,8 +22,14 @@
 	}
 
     $: if (properties) {
-        properties.align = dropdown.active;
-        tree = {...tree};
+        if (dropdown.active !== dropdown.default) {
+            properties.align = dropdown.active;
+            properties.active = true;
+            tree = {...tree};
+            onFinalize();
+        } else {
+            properties.active = false;
+        }
     }
 </script>
 <div class="container">

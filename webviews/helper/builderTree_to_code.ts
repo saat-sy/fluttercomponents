@@ -4,7 +4,6 @@ import type { CodeTemplate } from "../../common/code";
 import { CHILDREN_ID, CHILD_ID, COMPONENT_ID } from "../../common/constants";
 
 export function convertBuilderTreeToCode(builderTree: TreeComponent, parent: TreeModel): CodeTemplate {
-    console.log("sahnlihsd");
     if (Object.keys(builderTree).length > 0) {
         let code: CodeTemplate = {
             [COMPONENT_ID]: parent.component.id

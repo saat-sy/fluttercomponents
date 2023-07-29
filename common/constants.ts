@@ -7,6 +7,7 @@ export const replacableCharacter = "\\";
 export const replacableCharacterRegex = "/\\./g";
 export const CHILD_ID = "child";
 export const CHILDREN_ID = "children";
+export const DIFFERENT_PADDING = "~";
 
 // All Component IDS
 export const TEXT_ID = 1000;

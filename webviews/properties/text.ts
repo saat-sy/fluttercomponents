@@ -83,10 +83,12 @@ export const textProperties: PropertiesModel = {
     alignment: Alignment.ANY,
     position: {
         component: PositionDesign,
-        align: 0
+        align: 0,
+        active: false
     },
     padding: {
-        component: Padding
+        component: Padding,
+        active: false
     },
     customProperties: cloneDeep(customProperties),
 };
