@@ -106,12 +106,12 @@
     let builderTree: TreeComponent = {};
 
     function emptyOnConsider(e) {
-        if (e.detail.info.trigger == TRIGGERS.DRAGGED_ENTERED) {
-            firstItemHover = true;
-        } else if (e.detail.info.trigger == TRIGGERS.DRAGGED_LEFT) {
-            firstItemHover = false;
-        }
-        firstItem = e.detail.items;
+        // if (e.detail.info.trigger == TRIGGERS.DRAGGED_ENTERED) {
+        //     firstItemHover = true;
+        // } else if (e.detail.info.trigger == TRIGGERS.DRAGGED_LEFT) {
+        //     firstItemHover = false;
+        // }
+        // firstItem = e.detail.items;
     }
 
     function emptyOnFinalize(e) {
