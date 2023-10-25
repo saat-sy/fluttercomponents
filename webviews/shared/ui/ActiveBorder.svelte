@@ -1,28 +1,47 @@
-<script lang="ts">
-	import { cssVariables } from "../../helper/css-variables";
-
-	export let active: boolean;
+<script>
+	export let active = false;
+	export let title = "Component";
 </script>
-
-<div use:cssVariables={{
-	border: active ? '1px': '0px',
-	padding: active ? '5px': '6px',
-}} class="container">
-	<div class="border">
-		<slot></slot>
-	</div>
+  
+<div class="active-border" class:active={active}>
+	<!-- <div class="border-container"></div>
+	{#if active}
+		<div class="title">{title}</div>
+	{/if} -->
+	<slot></slot>
 </div>
 
 <style lang="scss">
-	@import "./variables.scss";
+	@import "../ui/variables.scss";
 
-	.container {
-		width: fit-content;
+	.active-border {
+		position: relative;
+		cursor: pointer;
 
-		.border {
-			margin-top: 5px;
-			border: var(--border) solid $active-border;
-			padding: var(--padding);
+		.border-container {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			border: 1px solid $active-border; 
+			display: none;
+		}
+
+		.title {
+			position: absolute;
+			top: -18px;
+			left: 0;
+			color: $active-border; 
+			display: none;
 		}
 	}
+
+	.active-border.active {
+		.border-container,
+		.title {
+			display: block;
+		}
+	}
+  	
 </style>

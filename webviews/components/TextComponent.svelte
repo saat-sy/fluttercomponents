@@ -15,7 +15,7 @@
 <!-- TODO: Max lines -->
 
 <div class="container">
-    <ActiveBorder active={active.status}>
+    <ActiveBorder active={active.status} title={properties.title}>
         <span 
             class="main"
             use:cssVariables={
@@ -39,6 +39,7 @@
 <style lang="scss">
     .container {
         position: relative;
+        z-index: 10;
 
         span {
             cursor: pointer;
