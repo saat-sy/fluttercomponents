@@ -17,11 +17,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        position: relative;
 
         .main {
             width: 50%;
-            // margin-bottom: 15px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,7 +28,7 @@
 
         .inner {
             width: 100%;
-            // margin-bottom: 15px;
+            margin-bottom: 15px;
         }
     }
 </style>

@@ -14,3 +14,9 @@ export const TEXT_ID = 1000;
 export const ROW_ID = 1001;
 export const COLUMN_ID = 1002;
 export const CONTAINER_ID = 1003;
+
+// All Component Names
+export const ROW_NAME = "Row";
+export const COLUMN_NAME = "Column";
+export const CONTAINER_NAME = "Container";
+export const TEXT_NAME = "Text";

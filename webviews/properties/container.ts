@@ -16,7 +16,6 @@ import {
     width
 } from "../../common/default/defaultContainerProps";
 import { cloneDeep } from "lodash";
-import ContainerComponent from "../components/ContainerComponent.svelte";
 
 const customProperties: CustomContainerProperties = {
     width: {
@@ -64,7 +63,6 @@ const customProperties: CustomContainerProperties = {
 };
 
 export const containerProperties: PropertiesModel = {
-    component: ContainerComponent,
     title: "Container",
     children: 1,
     alignment: Alignment.ANY,

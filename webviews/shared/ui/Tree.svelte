@@ -24,7 +24,7 @@
     ); 
 
 	function handleDndConsider(e: CustomEvent<DndEvent<any>>) {
-        let update = updateNewElement(e.detail.items, true)
+        let update = updateNewElement(e.detail.items, true);
 
         if (update.update) {
             e.detail.items.splice(update.i, 1, update.updatedComponent);
@@ -73,7 +73,7 @@
                         status: false,
                     },
                     children: [],
-                    property: getProperty(elements[i].id)
+                    property: getProperty(elements[i].id, elements[i].name)
                 }
             }
             let updatedComponent = {

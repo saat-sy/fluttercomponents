@@ -7,7 +7,7 @@
     import type { ComponentModel } from "./model/component_model";
     import UiBorder from "./shared/properties/UiBorder.svelte";
     import type { TreeComponent } from "./model/tree";
-	import { COLUMN_ID, CONTAINER_ID, ROW_ID, TEXT_ID } from "../common/constants";
+	import { COLUMN_ID, COLUMN_NAME, CONTAINER_ID, CONTAINER_NAME, ROW_ID, ROW_NAME, TEXT_ID, TEXT_NAME } from "../common/constants";
 	import type { CodeTemplate } from "../common/code";
 	import { getProperty } from "./helper/helper";
 	import { convertBuilderTreeToCode } from "./helper/builderTree_to_code";
@@ -16,19 +16,19 @@
     let components: ComponentModel[] = [
         {
             id: ROW_ID,
-            name: "Row",
+            name: ROW_NAME,
         },
         {
             id: COLUMN_ID,
-            name: "Column",
+            name: COLUMN_NAME,
         },
         {
             id: CONTAINER_ID,
-            name: "Container",
+            name: CONTAINER_NAME,
         },
         {
             id: TEXT_ID,
-            name: "Text",
+            name: TEXT_NAME,
         },
     ]
 
@@ -106,12 +106,12 @@
     let builderTree: TreeComponent = {};
 
     function emptyOnConsider(e) {
-        // if (e.detail.info.trigger == TRIGGERS.DRAGGED_ENTERED) {
-        //     firstItemHover = true;
-        // } else if (e.detail.info.trigger == TRIGGERS.DRAGGED_LEFT) {
-        //     firstItemHover = false;
-        // }
-        // firstItem = e.detail.items;
+        if (e.detail.info.trigger == TRIGGERS.DRAGGED_ENTERED) {
+            firstItemHover = true;
+        } else if (e.detail.info.trigger == TRIGGERS.DRAGGED_LEFT) {
+            firstItemHover = false;
+        }
+        firstItem = e.detail.items;
     }
 
     function emptyOnFinalize(e) {
@@ -123,7 +123,7 @@
                 active: {
                     status: false
                 },
-                property: getProperty(e.detail.items[0].id)
+                property: getProperty(e.detail.items[0].id, e.detail.items[0].name)
             }
         }
         onFinalize();
@@ -180,7 +180,7 @@
                 {#if firstItem.length != 0}
                     {#each firstItem as item}
                         <Component 
-                            properties={getProperty(item.id)} 
+                            properties={getProperty(item.id, item.name)} 
                             main={true}
                             component={item}
                             componentClick={()=>{}}

@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { COLUMN_ID, CONTAINER_ID, ROW_ID, TEXT_ID } from "../../common/constants";
+import { COLUMN_ID, COLUMN_NAME, CONTAINER_ID, CONTAINER_NAME, ROW_ID, ROW_NAME, TEXT_ID, TEXT_NAME } from "../../common/constants";
 import type { TreeComponent } from "../model/tree";
 import properties from "../properties/properties";
 
@@ -16,15 +16,15 @@ export function builderTreeContainsShadowItem(builderTree: TreeComponent): boole
     }
 }
 
-export function getProperty(id: number) {
+export function getProperty(id: number, name: string) {
     let stringId = id.toString();
-    if (stringId.startsWith(TEXT_ID.toString())) {
+    if (stringId.startsWith(TEXT_ID.toString()) || name.includes(TEXT_NAME)) {
         return cloneDeep(properties.textProperties);
-    } else if (stringId.startsWith(ROW_ID.toString())) {
+    } else if (stringId.startsWith(ROW_ID.toString()) || name.includes(ROW_NAME)) {
         return cloneDeep(properties.rowProperties);
-    } else if (stringId.startsWith(CONTAINER_ID.toString())) {
+    } else if (stringId.startsWith(CONTAINER_ID.toString()) || name.includes(CONTAINER_NAME)) {
         return cloneDeep(properties.containerProperties);
-    } else if (stringId.startsWith(COLUMN_ID.toString())) {
+    } else if (stringId.startsWith(COLUMN_ID.toString()) || name.includes(COLUMN_NAME)) {
         return cloneDeep(properties.columnProperties);
     }
 }
