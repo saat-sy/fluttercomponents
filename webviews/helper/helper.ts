@@ -28,3 +28,16 @@ export function getProperty(id: number, name: string) {
         return cloneDeep(properties.columnProperties);
     }
 }
+
+
+export function getId(name: string) {
+    if (name.includes(TEXT_NAME)) {
+        return TEXT_ID;
+    } else if (name.includes(ROW_NAME)) {
+        return ROW_ID;
+    } else if (name.includes(CONTAINER_NAME)) {
+        return CONTAINER_ID;
+    } else if (name.includes(COLUMN_NAME)) {
+        return COLUMN_ID;
+    }
+}

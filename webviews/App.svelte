@@ -64,43 +64,71 @@
     //     }, 
     // }
 
-    // let builderTree = {
+    // let builderTree: TreeComponent = {
     //     component1: {
-    //         component: components[1],
-    //         id: 'component1',
-    //         active: {
-    //             status: false
-    //         },
-    //         children: [
-    //             {id: "component2"},
-    //             {id: "component3"},
-    //             {id: "component4"},
-    //         ]
-    //     }, 
+	// 		component: components[1],
+	// 		id: 'component1',
+	// 		active: {
+	// 			status: false
+	// 		},
+	// 		children: [
+	// 			{
+	// 				component: components[0],
+	// 				id: 'component2',
+	// 				active: {
+	// 					status: false
+	// 				},
+	// 				children: [],
+	// 				property: undefined
+	// 			},
+	// 			{
+	// 				component: components[2],
+	// 				id: 'component3',
+	// 				active: {
+	// 					status: false
+	// 				},
+	// 				children: [],
+	// 				property: undefined
+	// 			},
+	// 			{
+	// 				component: components[3],
+	// 				id: 'component4',
+	// 				active: {
+	// 					status: false
+	// 				},
+	// 				children: [],
+	// 				property: undefined
+	// 			},
+	// 		],
+	// 		property: undefined
+	// 	}, 
     //     component2: {
-    //         component: components[0],
-    //         id: 'component2',
-    //         active: {
-    //             status: false
-    //         },
-    //         children: []
-    //     }, 
+	// 		component: components[0],
+	// 		id: 'component2',
+	// 		active: {
+	// 			status: false
+	// 		},
+	// 		children: [],
+	// 		property: undefined
+	// 	}, 
     //     component3: {
-    //         component: components[2],
-    //         id: 'component3',
-    //         active: {
-    //             status: false
-    //         },
-    //         children: []
-    //     }, 
+	// 		component: components[2],
+	// 		id: 'component3',
+	// 		active: {
+	// 			status: false
+	// 		},
+	// 		children: [],
+	// 		property: undefined
+	// 	}, 
     //     component4: {
-    //         component: components[3],
-    //         id: 'component4',
-    //         active: {
-    //             status: false
-    //         },
-    //         children: []
-    //     }
+	// 		component: components[3],
+	// 		id: 'component4',
+	// 		active: {
+	// 			status: false
+	// 		},
+	// 		children: [],
+	// 		property: undefined
+	// 	}
     // }
 
     let builderTree: TreeComponent = {};
