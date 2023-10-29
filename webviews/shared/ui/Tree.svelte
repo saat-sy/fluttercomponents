@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { TreeModel, TreeComponent } from "../../model/tree";
 	import { SHADOW_ITEM_MARKER_PROPERTY_NAME, dndzone } from 'svelte-dnd-action';
-	import { flip } from 'svelte/animate';
 	import Component from "./Component.svelte";
 	import type { ComponentModel } from "../../model/component_model";
 	import { getId, getProperty } from "../../helper/helper";
@@ -14,9 +13,14 @@
 	const flipDurationMs = 200;
     let size = Object.keys(tree).length + 1;
     let dropTargetStyle = {};
+    let useDnd = true;
 
 	function handleDndConsider(e) {
-		let update = updateNewElement(e.detail.items, true);
+        if (!useDnd) {
+            return;
+        }
+
+        let update = updateNewElement(e.detail.items, true);
 
 		if (update.update) {
 			e.detail.items.splice(update.i, 1, update.updatedComponent);
@@ -104,6 +108,8 @@
 		tree = {...tree};
 		event.stopPropagation();
 	}
+
+    $: console.log(useDnd);
 </script>
 
 {#if parent?.hasOwnProperty("children") && parent}
@@ -112,25 +118,26 @@
 		componentClick={(event, component) => {componentClick(event, component)}}
 		bind:properties={parent.property} 
 		main={main}
-		activeStatus={parent.active} >
-		<section use:dndzone={{items: parent.children, flipDurationMs, centreDraggedOnCursor: true, dropTargetStyle}}
-						on:consider={handleDndConsider} 
-						on:finalize={handleDndFinalize}>		
-				{#each parent.children as item(item.id)}
-					<div animate:flip="{{duration: flipDurationMs}}" class="item">
-						<svelte:self bind:tree={tree} parent={tree[item.id]} />
-					</div>
-				{/each}
-		</section>
+		activeStatus={parent.active}
+        bind:dnd={useDnd}>
+        <section use:dndzone={{items: parent.children, flipDurationMs, centreDraggedOnCursor: false, dropTargetStyle, dragDisabled: !useDnd}}
+                    on:consider={handleDndConsider} 
+                    on:finalize={handleDndFinalize}>		
+            {#each parent.children as item(item.id)}
+                <div class="item">
+                    <svelte:self bind:tree={tree} parent={tree[item.id]} />
+                </div>
+            {/each}
+        </section>
 	</Component>
 {/if}
 
 <style>
 	section {
-		width: auto;
+		width: 100%;
 		border: 0px solid black;
-		padding: 20px;
-		overflow-y: auto ;
-		height: auto;
+		/* padding: 20px; */
+		overflow-y: hidden;
+		height: 100%;
 	}
 </style>

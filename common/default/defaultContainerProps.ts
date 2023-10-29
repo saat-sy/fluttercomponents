@@ -1,11 +1,11 @@
-const height = "20";
+const height = "100";
 const defaultWidth = "";
-const width = "20";
+const width = "100";
 const defaultHeight = "";
-const backgroundColor = "#000000";
+const backgroundColor = "#FFFFFF";
 const borderWidth = "";
 const borderRadius = "";
-const borderColor = "";
+const borderColor = "#FFFFFF";
 
 export {
     backgroundColor,

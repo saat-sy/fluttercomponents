@@ -9,6 +9,7 @@
     export let componentClick: (event, component: ComponentModel) => void;
     export let component: ComponentModel;
     export let activeStatus: ActiveModel;
+    export let dnd: Boolean = false;
 </script>
 
 <style lang="scss">
@@ -27,8 +28,8 @@
         }
 
         .inner {
-            width: 100%;
-            margin-bottom: 15px;
+            width: auto;
+            // margin-bottom: 15px;
         }
     }
 </style>
@@ -40,11 +41,12 @@
             <svelte:component 
                 this="{properties.component}" 
                 bind:properties={properties}
-                bind:active={activeStatus} >
+                bind:active={activeStatus}
+                bind:dnd2={dnd} >
                 <slot></slot>
             </svelte:component>
         {:else}
-            <Border title={properties.title}>
+            <Border bind:dnd2={dnd} title={properties.title}>
                 <slot></slot>
             </Border>
         {/if}
